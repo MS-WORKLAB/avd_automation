@@ -1,0 +1,41 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "automationAccountName": {
+        "type": "string",
+        "defaultValue": "[concat('auto-', uniqueString(resourceGroup().id))]",
+        "metadata": {
+          "description": "Name of the Azure Automation Account"
+        }
+      }
+    },
+    "resources": [
+      {
+        "type": "Microsoft.Automation/automationAccounts",
+        "apiVersion": "2019-06-01",
+        "name": "[parameters('automationAccountName')]",
+        "location": "[resourceGroup().location]",
+        "properties": {}
+      },
+      {
+        "type": "Microsoft.Automation/automationAccounts/runbooks",
+        "apiVersion": "2019-06-01",
+        "name": "[concat(parameters('automationAccountName'), '/', 'MyRunbookName')]",
+        "dependsOn": [
+          "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
+        ],
+        "properties": {
+          "description": "My runbook description",
+          "logVerbose": "true",
+          "logProgress": "true",
+          "publishContentLink": {
+            "uri": "https://raw.githubusercontent.com/YourGitHubUsername/YourRepoName/main/runbooks/testCustom.ps1",
+            "contentVersion": "1.0.0.0"
+          },
+          "runbookType": "PowerShell"
+        }
+      }
+    ]
+  }
+  

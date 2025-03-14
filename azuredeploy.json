@@ -28,19 +28,20 @@
       {
         "type": "Microsoft.Automation/automationAccounts/runbooks",
         "apiVersion": "2019-06-01",
-        "name": "[concat(parameters('automationAccountName'), '/', 'MyRunbookName')]",
+        "name": "[concat(parameters('automationAccountName'), '/MyRunbookName')]",
+        "location": "[resourceGroup().location]",
         "dependsOn": [
           "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
         ],
         "properties": {
+          "runbookType": "PowerShell",
           "description": "My runbook description",
-          "logVerbose": "true",
-          "logProgress": "true",
+          "logVerbose": true,
+          "logProgress": true,
           "publishContentLink": {
-            "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/refs/heads/main/testCustom.ps1",
+            "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/main/testCustom.ps1",
             "contentVersion": "1.0.0.0"
-          },
-          "runbookType": "PowerShell"
+          }
         }
       }
     ]

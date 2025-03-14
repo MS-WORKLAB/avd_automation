@@ -30,7 +30,7 @@
           "logVerbose": "true",
           "logProgress": "true",
           "publishContentLink": {
-            "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/refs/heads/main/testCustom.ps1?token=GHSAT0AAAAAADAIKWBTSVIAVUDLGQEVIW7OZ6UIQ6A",
+            "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/refs/heads/main/testCustom.ps1",
             "contentVersion": "1.0.0.0"
           },
           "runbookType": "PowerShell"

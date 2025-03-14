@@ -16,7 +16,10 @@
         "apiVersion": "2019-06-01",
         "name": "[parameters('automationAccountName')]",
         "location": "[resourceGroup().location]",
-        "properties": {}
+        "properties": {},
+        "sku": {
+            "name": "Free"
+          }
       },
       {
         "type": "Microsoft.Automation/automationAccounts/runbooks",

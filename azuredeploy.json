@@ -11,20 +11,43 @@
     "subscriptionId": {
       "type": "string",
       "metadata": {
-        "description": "Select an Azure Subscription"
-      },
-      "uiDefinition": {
-        "label": "Subscription",
-        "elementType": "ResourceSelector",
-        "resourceType": "Microsoft.Resources/subscriptions",
-        "apiVersion": "2021-01-01"
+        "description": "Subscription ID of AVD Host Pool, i.e. 00000000-0000-0000-0000-000000000000"
       }
+    },
+    "tenandID": {
+      "type": "string",
+      "metadata": {
+        "description": "Tenand ID of AVD Host Pool, i.e. 00000000-0000-0000-0000-000000000000"
+      }
+    },
+    "regionName": {
+      "type": "string",
+      "metadata": {
+        "description": "Region of AVD Host Pool, i.e. germanywestcentral"
+      }
+    },
+    "resourceGroupName": {
+      "type": "string",
+      "metadata": {
+        "description": "Resource Group Name of AVD Host Pool"
       }
     },
     "hostPoolName": {
       "type": "string",
       "metadata": {
         "description": "Existing Host Pool Name"
+      }
+    },
+    "vnetname": {
+      "type": "string",
+      "metadata": {
+        "description": "VNET Name of Session Hosts"
+      }
+    },
+    "subnetName": {
+      "type": "string",
+      "metadata": {
+        "description": "Subnet Name of Seassion Hosts"
       }
     },
     "newHostNamePrefix": {
@@ -70,6 +93,18 @@
       "metadata": {
         "description": "SKU Size for your new AVD Session Hosts, i.e. Standard_D2as_v5"
       }
+    },
+    "domainUsername": {
+      "type": "SecureString"
+    },   
+    "credentials_AVDDomainAdmin_password": {
+      "type": "SecureString"
+    },
+    "credentials_AVDLocalAdmin_password": {
+        "type": "SecureString"
+    },
+    "credentials_AVDServicePrincipal_password": {
+        "type": "SecureString"
     }
   },
     "resources": [
@@ -86,7 +121,44 @@
             }
         }
 
+      },     
+      {
+        "type": "Microsoft.Automation/automationAccounts/credentials",
+        "apiVersion": "2023-11-01",
+        "name": "[concat(parameters('automationAccountName'), '/AVDDomainAdmin')]",
+        "dependsOn": [
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
+        ],
+        "properties": {
+            "userName": "[parameters('domainUsername')]",
+            "password": "[parameters('credentials_AVDDomainAdmin_password')]"
+        }
       },
+      {
+          "type": "Microsoft.Automation/automationAccounts/credentials",
+          "apiVersion": "2023-11-01",
+          "name": "[concat(parameters('automationAccountName'), '/AVDLocalAdmin')]",
+          "dependsOn": [
+              "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
+          ],
+          "properties": {
+              "userName": "azadmin",
+              "password": "[parameters('credentials_AVDLocalAdmin_password')]"
+          }
+      },
+      {
+          "type": "Microsoft.Automation/automationAccounts/credentials",
+          "apiVersion": "2023-11-01",
+          "name": "[concat(parameters('automationAccountName'), '/AVDServicePrincipal')]",
+          "dependsOn": [
+              "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
+          ],
+          "properties": {
+              "userName": "8169475d-6f89-4452-aeb6-8cc7592186d0",
+              "password": "[parameters('credentials_AVDServicePrincipal_password')]"
+          }
+      },
+
       {
         "type": "Microsoft.Automation/automationAccounts/runbooks",
         "apiVersion": "2019-06-01",
@@ -225,7 +297,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[format('\"{0}\"', parameters('region'))]"
+            "value": "[format('\"{0}\"', parameters('regionName'))]"
         }
     },
     {
@@ -237,7 +309,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[resourceGroup().name]"
+            "value": "[format('\"{0}\"', parameters('resourceGroupName'))]"
         }
     },
     {

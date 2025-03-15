@@ -1,15 +1,20 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-      "automationAccountName": {
-        "type": "string",
-        "defaultValue": "[concat('auto-', uniqueString(resourceGroup().id))]",
-        "metadata": {
-          "description": "Name of the Azure Automation Account"
-        }
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "automationAccountName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the Azure Automation Account"
       }
     },
+    "azureGalleryName": {
+      "type": "string",
+      "metadata": {
+        "description": "Azure Gallery name"
+      }
+    }
+  },
     "resources": [
       {
         "type": "Microsoft.Automation/automationAccounts",
@@ -91,7 +96,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "\"AVDGALLERY\""
+             "value": "[parameters('azureGalleryName')]"
         }
     },
     {

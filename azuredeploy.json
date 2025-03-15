@@ -8,46 +8,10 @@
         "description": "Name of the Azure Automation Account"
       }
     },
-    "subscriptionId": {
-      "type": "string",
-      "metadata": {
-        "description": "Subscription ID of AVD Host Pool, i.e. 00000000-0000-0000-0000-000000000000"
-      }
-    },
-    "tenandID": {
-      "type": "string",
-      "metadata": {
-        "description": "Tenand ID of AVD Host Pool, i.e. 00000000-0000-0000-0000-000000000000"
-      }
-    },
-    "regionName": {
-      "type": "string",
-      "metadata": {
-        "description": "Region of AVD Host Pool, i.e. germanywestcentral"
-      }
-    },
-    "resourceGroupName": {
-      "type": "string",
-      "metadata": {
-        "description": "Resource Group Name of AVD Host Pool"
-      }
-    },
     "hostPoolName": {
       "type": "string",
       "metadata": {
         "description": "Existing Host Pool Name"
-      }
-    },
-    "vnetname": {
-      "type": "string",
-      "metadata": {
-        "description": "VNET Name of Session Hosts"
-      }
-    },
-    "subnetName": {
-      "type": "string",
-      "metadata": {
-        "description": "Subnet Name of Seassion Hosts"
       }
     },
     "newHostNamePrefix": {
@@ -56,7 +20,6 @@
         "description": "Prefix for newly created AVD Session Hosts, i.e. AVDVM-"
       }
     },
-
     "azureGalleryName": {
         "type": "string",
         "metadata": {
@@ -108,14 +71,15 @@
                 "name": "Basic"
             }
         }
-      },          
+
+      },
       {
         "type": "Microsoft.Automation/automationAccounts/runbooks",
         "apiVersion": "2019-06-01",
         "name": "[concat(parameters('automationAccountName'), '/NewHosts')]",
         "location": "[resourceGroup().location]",
         "dependsOn": [
-          "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName')]"
+          "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
         ],
         "properties": {
           "runbookType": "PowerShell",
@@ -134,7 +98,7 @@
         "name": "[concat(parameters('automationAccountName'), '/NewImage')]",
         "location": "[resourceGroup().location]",
         "dependsOn": [
-          "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName')]"
+          "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
         ],
         "properties": {
           "runbookType": "PowerShell",
@@ -153,7 +117,7 @@
         "name": "[concat(parameters('automationAccountName'), '/UpdateImage')]",
         "location": "[resourceGroup().location]",
         "dependsOn": [
-          "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName')]"
+          "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
         ],
         "properties": {
           "runbookType": "PowerShell",
@@ -171,11 +135,11 @@
         "apiVersion": "2023-11-01",
         "name": "[concat(parameters('automationAccountName'), '/AZGallery')]",
         "dependsOn": [
-            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName')]"
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[parameters('azureGalleryName')]"
+            "value": "[format('\"{0}\"', parameters('azureGalleryName'))]"
         }
     },
     {
@@ -183,7 +147,7 @@
         "apiVersion": "2023-11-01",
         "name": "[concat(parameters('automationAccountName'), '/DomainName')]",
         "dependsOn": [
-            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName')]"
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
         ],
         "properties": {
             "isEncrypted": false,
@@ -195,7 +159,7 @@
         "apiVersion": "2023-11-01",
         "name": "[concat(parameters('automationAccountName'), '/DomainOUPath')]",
         "dependsOn": [
-            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName')]"
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
         ],
         "properties": {
             "isEncrypted": false,
@@ -207,7 +171,7 @@
         "apiVersion": "2023-11-01",
         "name": "[concat(parameters('automationAccountName'), '/HostPoolName')]",
         "dependsOn": [
-            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName')]"
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
         ],
         "properties": {
             "isEncrypted": false,
@@ -219,7 +183,7 @@
         "apiVersion": "2023-11-01",
         "name": "[concat(parameters('automationAccountName'), '/ImageDefinition')]",
         "dependsOn": [
-            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName')]"
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
         ],
         "properties": {
             "isEncrypted": false,
@@ -231,7 +195,7 @@
         "apiVersion": "2023-11-01",
         "name": "[concat(parameters('automationAccountName'), '/NewHostName')]",
         "dependsOn": [
-            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName')]"
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
         ],
         "properties": {
             "isEncrypted": false,
@@ -243,11 +207,11 @@
         "apiVersion": "2023-11-01",
         "name": "[concat(parameters('automationAccountName'), '/Region')]",
         "dependsOn": [
-            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName')]"
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[parameters('regionName')]"
+            "value": "[resourceGroup().location]"
         }
     },
     {
@@ -255,11 +219,11 @@
         "apiVersion": "2023-11-01",
         "name": "[concat(parameters('automationAccountName'), '/ResourceGroupName')]",
         "dependsOn": [
-            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName')]"
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[parameters('resourceGroupName')]"
+            "value": "[resourceGroup().name]"
         }
     },
     {
@@ -267,7 +231,7 @@
         "apiVersion": "2023-11-01",
         "name": "[concat(parameters('automationAccountName'), '/SecondImageRegion')]",
         "dependsOn": [
-            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName')]"
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
         ],
         "properties": {
             "isEncrypted": false,
@@ -279,11 +243,11 @@
         "apiVersion": "2023-11-01",
         "name": "[concat(parameters('automationAccountName'), '/SubnetName')]",
         "dependsOn": [
-            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName')]"
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[parameters('subnetName')]"
+            "value": "\"AVD-AD-SUBNET1\""
         }
     },
     {
@@ -291,11 +255,11 @@
         "apiVersion": "2023-11-01",
         "name": "[concat(parameters('automationAccountName'), '/SubscriptionId')]",
         "dependsOn": [
-            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName')]"
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[parameters('subscriptionId')]"
+            "value": "\"d1857a3e-d145-4293-b1bf-b528dab49617\""
         }
     },
     {
@@ -303,11 +267,11 @@
         "apiVersion": "2023-11-01",
         "name": "[concat(parameters('automationAccountName'), '/TenandID')]",
         "dependsOn": [
-            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName')]"
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[parameters('tenandID')]"
+            "value": "\"6a258e3f-f31d-45b8-a422-bd28c9636e4f\""
         }
     },
     {
@@ -315,7 +279,7 @@
         "apiVersion": "2023-11-01",
         "name": "[concat(parameters('automationAccountName'), '/VMSKUSize')]",
         "dependsOn": [
-            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName')]"
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
         ],
         "properties": {
             "isEncrypted": false,
@@ -327,11 +291,11 @@
         "apiVersion": "2023-11-01",
         "name": "[concat(parameters('automationAccountName'), '/VNETName')]",
         "dependsOn": [
-            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName')]"
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[parameters('vnetname')]"
+            "value": "\"AVD-AD-VNET\""
         }
     }
     ]

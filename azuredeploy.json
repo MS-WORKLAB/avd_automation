@@ -93,7 +93,22 @@
         "description": "SKU Size for your new AVD Session Hosts, i.e. Standard_D2as_v5"
       }
     },
-    "credentials_AVDDomainAdmin_password": {
+    "domainUsername": {
+      "type": "string"
+    },
+    "domainPassword": {
+      "type": "SecureString"
+    },
+    "localUsername": {
+      "type": "string"
+    },
+    "localPassword": {
+      "type": "SecureString"
+    },
+    "servicePrincipalClientID": {
+      "type": "String"
+    },
+   "servicePrincipalSecret": {
       "type": "SecureString"
     }
   },
@@ -122,6 +137,30 @@
             "userName": "[parameters('credentials_AVDDomainAdmin_password')]",
             "password": "[parameters('credentials_AVDDomainAdmin_password')]"
         }
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/credentials",
+      "apiVersion": "2023-11-01",
+      "name": "[concat(parameters('automationAccountName'), '/AVDLocalAdmin')]",
+      "dependsOn": [
+          "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
+      ],
+      "properties": {
+          "userName": "azadmin",
+          "password": "[parameters('credentials_AVDLocalAdmin_password')]"
+      }
+    },
+    {
+      "type": "Microsoft.Automation/automationAccounts/credentials",
+      "apiVersion": "2023-11-01",
+      "name": "[concat(parameters('automationAccountName'), '/AVDServicePrincipal')]",
+      "dependsOn": [
+          "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
+      ],
+      "properties": {
+          "userName": "8169475d-6f89-4452-aeb6-8cc7592186d0",
+          "password": "[parameters('credentials_AVDServicePrincipal_password')]"
+      }
     },
       {
         "type": "Microsoft.Automation/automationAccounts/runbooks",

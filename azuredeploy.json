@@ -8,10 +8,46 @@
         "description": "Name of the Azure Automation Account"
       }
     },
+    "subscriptionId": {
+      "type": "string",
+      "metadata": {
+        "description": "Subscription ID of AVD Host Pool, i.e. 00000000-0000-0000-0000-000000000000"
+      }
+    },
+    "tenandID": {
+      "type": "string",
+      "metadata": {
+        "description": "Tenand ID of AVD Host Pool, i.e. 00000000-0000-0000-0000-000000000000"
+      }
+    },
+    "regionName": {
+      "type": "string",
+      "metadata": {
+        "description": "Region of AVD Host Pool, i.e. germanywestcentral"
+      }
+    },
+    "resourceGroupName": {
+      "type": "string",
+      "metadata": {
+        "description": "Resource Group Name of AVD Host Pool"
+      }
+    },
     "hostPoolName": {
       "type": "string",
       "metadata": {
         "description": "Existing Host Pool Name"
+      }
+    },
+    "vnetname": {
+      "type": "string",
+      "metadata": {
+        "description": "VNET Name of Session Hosts"
+      }
+    },
+    "subnetName": {
+      "type": "string",
+      "metadata": {
+        "description": "Subnet Name of Seassion Hosts"
       }
     },
     "newHostNamePrefix": {
@@ -151,7 +187,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[parameters('domainName')]"
+            "value": "[format('\"{0}\"', parameters('domainName'))]"
         }
     },
     {
@@ -163,7 +199,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[parameters('domainOUPath')]"
+            "value": "[format('\"{0}\"', parameters('domainOUPath'))]"
         }
     },
     {
@@ -175,7 +211,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[parameters('hostPoolName')]"
+            "value": "[format('\"{0}\"', parameters('hostPoolName'))]"
         }
     },
     {
@@ -187,7 +223,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[parameters('imageDefinition')]"
+            "value": "[format('\"{0}\"', parameters('imageDefinition'))]"
         }
     },
     {
@@ -199,7 +235,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[parameters('newHostNamePrefix')]"
+            "value": "[format('\"{0}\"', parameters('newHostNamePrefix'))]"
         }
     },
     {
@@ -211,7 +247,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[resourceGroup().location]"
+            "value": "[format('\"{0}\"', parameters('regionName'))]"
         }
     },
     {
@@ -223,7 +259,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[resourceGroup().name]"
+            "value": "[format('\"{0}\"', parameters('resourceGroupName'))]"
         }
     },
     {
@@ -235,69 +271,68 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[parameters('secondImageRegion')]"
+            "value": "[format('\"{0}\"', parameters('secondImageRegion'))]"
         }
     },
     {
-        "type": "Microsoft.Automation/automationAccounts/variables",
-        "apiVersion": "2023-11-01",
-        "name": "[concat(parameters('automationAccountName'), '/SubnetName')]",
-        "dependsOn": [
-            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
-        ],
-        "properties": {
-            "isEncrypted": false,
-            "value": "\"AVD-AD-SUBNET1\""
-        }
-    },
-    {
-        "type": "Microsoft.Automation/automationAccounts/variables",
-        "apiVersion": "2023-11-01",
-        "name": "[concat(parameters('automationAccountName'), '/SubscriptionId')]",
-        "dependsOn": [
-            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
-        ],
-        "properties": {
-            "isEncrypted": false,
-            "value": "\"d1857a3e-d145-4293-b1bf-b528dab49617\""
-        }
-    },
-    {
-        "type": "Microsoft.Automation/automationAccounts/variables",
-        "apiVersion": "2023-11-01",
-        "name": "[concat(parameters('automationAccountName'), '/TenandID')]",
-        "dependsOn": [
-            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
-        ],
-        "properties": {
-            "isEncrypted": false,
-            "value": "\"6a258e3f-f31d-45b8-a422-bd28c9636e4f\""
-        }
-    },
-    {
-        "type": "Microsoft.Automation/automationAccounts/variables",
-        "apiVersion": "2023-11-01",
-        "name": "[concat(parameters('automationAccountName'), '/VMSKUSize')]",
-        "dependsOn": [
-            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
-        ],
-        "properties": {
-            "isEncrypted": false,
-            "value": "[parameters('vmSKUSize')]"
-        }
-    },
-    {
-        "type": "Microsoft.Automation/automationAccounts/variables",
-        "apiVersion": "2023-11-01",
-        "name": "[concat(parameters('automationAccountName'), '/VNETName')]",
-        "dependsOn": [
-            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
-        ],
-        "properties": {
-            "isEncrypted": false,
-            "value": "\"AVD-AD-VNET\""
-        }
-    }
-    ]
+      "type": "Microsoft.Automation/automationAccounts/variables",
+      "apiVersion": "2023-11-01",
+      "name": "[concat(parameters('automationAccountName'), '/SubnetName')]",
+      "dependsOn": [
+          "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
+      ],
+      "properties": {
+          "isEncrypted": false,
+          "value": "[format('\"{0}\"', parameters('subnetName'))]"
+      }
+  },
+  {
+      "type": "Microsoft.Automation/automationAccounts/variables",
+      "apiVersion": "2023-11-01",
+      "name": "[concat(parameters('automationAccountName'), '/SubscriptionId')]",
+      "dependsOn": [
+          "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
+      ],
+      "properties": {
+          "isEncrypted": false,
+          "value": "[format('\"{0}\"', parameters('subscriptionId'))]"
+      }
+  },
+  {
+      "type": "Microsoft.Automation/automationAccounts/variables",
+      "apiVersion": "2023-11-01",
+      "name": "[concat(parameters('automationAccountName'), '/TenandID')]",
+      "dependsOn": [
+          "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
+      ],
+      "properties": {
+          "isEncrypted": false,
+          "value": "[format('\"{0}\"', parameters('tenandID'))]"
+      }
+  },
+  {
+      "type": "Microsoft.Automation/automationAccounts/variables",
+      "apiVersion": "2023-11-01",
+      "name": "[concat(parameters('automationAccountName'), '/VMSKUSize')]",
+      "dependsOn": [
+          "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
+      ],
+      "properties": {
+          "isEncrypted": false,
+          "value": "[format('\"{0}\"', parameters('vmSKUSize'))]"
+      }
+  },
+  {
+      "type": "Microsoft.Automation/automationAccounts/variables",
+      "apiVersion": "2023-11-01",
+      "name": "[concat(parameters('automationAccountName'), '/VNETName')]",
+      "dependsOn": [
+          "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
+      ],
+      "properties": {
+          "isEncrypted": false,
+          "value": "[format('\"{0}\"', parameters('vnetname'))]"
+      }
   }
-  
+  ]
+}

@@ -8,10 +8,53 @@
         "description": "Name of the Azure Automation Account"
       }
     },
-    "azureGalleryName": {
+    "hostPoolName": {
       "type": "string",
       "metadata": {
-        "description": "Azure Gallery name"
+        "description": "Existing Host Pool Name"
+      }
+    },
+    "newHostNamePrefix": {
+      "type": "string",
+      "metadata": {
+        "description": "Prefix for newly created AVD Session Hosts"
+      }
+    },
+    "azureGalleryName": {
+        "type": "string",
+        "metadata": {
+          "description": "Azure Gallery name"
+        }
+    },
+    "imageDefinition": {
+      "type": "string",
+      "metadata": {
+        "description": "Azure Gallery Image Definition Name"
+      }
+    },
+    "secondImageRegion": {
+      "type": "string",
+      "defaultValue": "eastus",
+      "metadata": {
+        "description": "Second Image Region Location"
+      }
+    },
+    "domainName": {
+      "type": "string",
+      "metadata": {
+        "description": "Domain name, i.e. contoso.lab"
+      }
+    },
+    "domainOUPath": {
+      "type": "string",
+      "metadata": {
+        "description": "OU Path for your AVD Session Hosts, i.e. OU=AVD,DC=contoso,DC=lab"
+      }
+    },
+    "vMSKUSize": {
+      "type": "string",
+      "metadata": {
+        "description": "SKU Size for your new AVD Session Hosts"
       }
     }
   },
@@ -108,7 +151,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "\"azlab.local\""
+            "value": "[parameters('domainName')]"
         }
     },
     {
@@ -120,7 +163,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "\"OU=Hosts,OU=AVD,DC=azlab,DC=local\""
+            "value": "[parameters('domainOUPath')]"
         }
     },
     {
@@ -132,7 +175,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "\"AVDHOSTPOOL\""
+            "value": "[parameters('hostPoolName')]"
         }
     },
     {
@@ -144,7 +187,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "\"W11-24H2\""
+            "value": "[parameters('imageDefinition')]"
         }
     },
     {
@@ -156,8 +199,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "\"AVD-VM-\"",
-            "description": "Prefix"
+            "value": "[parameters('newHostNamePrefix')]"
         }
     },
     {
@@ -169,7 +211,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "\"germanywestcentral\""
+            "value": "[resourceGroup().location]"
         }
     },
     {
@@ -181,7 +223,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "\"AVD-LAB-RG\""
+            "value": "[resourceGroup().name]"
         }
     },
     {
@@ -193,7 +235,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "\"eastus\""
+            "value": "[parameters('secondImageRegion')]"
         }
     },
     {
@@ -241,7 +283,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "\"Standard_D2as_v5\""
+            "value": "[parameters('vMSKUSize')]"
         }
     },
     {

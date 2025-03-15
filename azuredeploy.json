@@ -139,7 +139,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[json(concat('\"', parameters('azureGalleryName'), '\"'))]"
+            "value": "[format('\"{0}\"', parameters('azureGalleryName'))]"
         }
     },
     {

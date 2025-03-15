@@ -28,7 +28,7 @@
       {
         "type": "Microsoft.Automation/automationAccounts/runbooks",
         "apiVersion": "2019-06-01",
-        "name": "[concat(parameters('automationAccountName'), '/MyRunbookName')]",
+        "name": "[concat(parameters('automationAccountName'), '/NewHosts')]",
         "location": "[resourceGroup().location]",
         "dependsOn": [
           "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
@@ -39,11 +39,218 @@
           "logVerbose": true,
           "logProgress": true,
           "publishContentLink": {
-            "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/main/testCustom.ps1",
+            "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/main/NewHosts.ps1",
             "contentVersion": "1.0.0.0"
           }
         }
-      }
+      },
+      {
+        "type": "Microsoft.Automation/automationAccounts/runbooks",
+        "apiVersion": "2019-06-01",
+        "name": "[concat(parameters('automationAccountName'), '/NewImage')]",
+        "location": "[resourceGroup().location]",
+        "dependsOn": [
+          "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
+        ],
+        "properties": {
+          "runbookType": "PowerShell",
+          "description": "My runbook description",
+          "logVerbose": true,
+          "logProgress": true,
+          "publishContentLink": {
+            "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/main/NewImage.ps1",
+            "contentVersion": "1.0.0.0"
+          }
+        }
+      },
+      {
+        "type": "Microsoft.Automation/automationAccounts/runbooks",
+        "apiVersion": "2019-06-01",
+        "name": "[concat(parameters('automationAccountName'), '/UpdateImage')]",
+        "location": "[resourceGroup().location]",
+        "dependsOn": [
+          "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
+        ],
+        "properties": {
+          "runbookType": "PowerShell",
+          "description": "My runbook description",
+          "logVerbose": true,
+          "logProgress": true,
+          "publishContentLink": {
+            "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/main/UpdateImage.ps1",
+            "contentVersion": "1.0.0.0"
+          }
+        }
+      },
+      {
+        "type": "Microsoft.Automation/automationAccounts/variables",
+        "apiVersion": "2023-11-01",
+        "name": "[concat(parameters('automationAccounts_UpdateAVD_name'), '/AZGallery')]",
+        "dependsOn": [
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_UpdateAVD_name'))]"
+        ],
+        "properties": {
+            "isEncrypted": false,
+            "value": "\"AVDGALLERY\""
+        }
+    },
+    {
+        "type": "Microsoft.Automation/automationAccounts/variables",
+        "apiVersion": "2023-11-01",
+        "name": "[concat(parameters('automationAccounts_UpdateAVD_name'), '/DomainName')]",
+        "dependsOn": [
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_UpdateAVD_name'))]"
+        ],
+        "properties": {
+            "isEncrypted": false,
+            "value": "\"azlab.local\""
+        }
+    },
+    {
+        "type": "Microsoft.Automation/automationAccounts/variables",
+        "apiVersion": "2023-11-01",
+        "name": "[concat(parameters('automationAccounts_UpdateAVD_name'), '/DomainOUPath')]",
+        "dependsOn": [
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_UpdateAVD_name'))]"
+        ],
+        "properties": {
+            "isEncrypted": false,
+            "value": "\"OU=Hosts,OU=AVD,DC=azlab,DC=local\""
+        }
+    },
+    {
+        "type": "Microsoft.Automation/automationAccounts/variables",
+        "apiVersion": "2023-11-01",
+        "name": "[concat(parameters('automationAccounts_UpdateAVD_name'), '/HostPoolName')]",
+        "dependsOn": [
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_UpdateAVD_name'))]"
+        ],
+        "properties": {
+            "isEncrypted": false,
+            "value": "\"AVDHOSTPOOL\""
+        }
+    },
+    {
+        "type": "Microsoft.Automation/automationAccounts/variables",
+        "apiVersion": "2023-11-01",
+        "name": "[concat(parameters('automationAccounts_UpdateAVD_name'), '/ImageDefinition')]",
+        "dependsOn": [
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_UpdateAVD_name'))]"
+        ],
+        "properties": {
+            "isEncrypted": false,
+            "value": "\"W11-24H2\""
+        }
+    },
+    {
+        "type": "Microsoft.Automation/automationAccounts/variables",
+        "apiVersion": "2023-11-01",
+        "name": "[concat(parameters('automationAccounts_UpdateAVD_name'), '/NewHostName')]",
+        "dependsOn": [
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_UpdateAVD_name'))]"
+        ],
+        "properties": {
+            "isEncrypted": false,
+            "value": "\"AVD-VM-\"",
+            "description": "Prefix"
+        }
+    },
+    {
+        "type": "Microsoft.Automation/automationAccounts/variables",
+        "apiVersion": "2023-11-01",
+        "name": "[concat(parameters('automationAccounts_UpdateAVD_name'), '/Region')]",
+        "dependsOn": [
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_UpdateAVD_name'))]"
+        ],
+        "properties": {
+            "isEncrypted": false,
+            "value": "\"germanywestcentral\""
+        }
+    },
+    {
+        "type": "Microsoft.Automation/automationAccounts/variables",
+        "apiVersion": "2023-11-01",
+        "name": "[concat(parameters('automationAccounts_UpdateAVD_name'), '/ResourceGroupName')]",
+        "dependsOn": [
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_UpdateAVD_name'))]"
+        ],
+        "properties": {
+            "isEncrypted": false,
+            "value": "\"AVD-LAB-RG\""
+        }
+    },
+    {
+        "type": "Microsoft.Automation/automationAccounts/variables",
+        "apiVersion": "2023-11-01",
+        "name": "[concat(parameters('automationAccounts_UpdateAVD_name'), '/SecondImageRegion')]",
+        "dependsOn": [
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_UpdateAVD_name'))]"
+        ],
+        "properties": {
+            "isEncrypted": false,
+            "value": "\"eastus\""
+        }
+    },
+    {
+        "type": "Microsoft.Automation/automationAccounts/variables",
+        "apiVersion": "2023-11-01",
+        "name": "[concat(parameters('automationAccounts_UpdateAVD_name'), '/SubnetName')]",
+        "dependsOn": [
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_UpdateAVD_name'))]"
+        ],
+        "properties": {
+            "isEncrypted": false,
+            "value": "\"AVD-AD-SUBNET1\""
+        }
+    },
+    {
+        "type": "Microsoft.Automation/automationAccounts/variables",
+        "apiVersion": "2023-11-01",
+        "name": "[concat(parameters('automationAccounts_UpdateAVD_name'), '/SubscriptionId')]",
+        "dependsOn": [
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_UpdateAVD_name'))]"
+        ],
+        "properties": {
+            "isEncrypted": false,
+            "value": "\"d1857a3e-d145-4293-b1bf-b528dab49617\""
+        }
+    },
+    {
+        "type": "Microsoft.Automation/automationAccounts/variables",
+        "apiVersion": "2023-11-01",
+        "name": "[concat(parameters('automationAccounts_UpdateAVD_name'), '/TenandID')]",
+        "dependsOn": [
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_UpdateAVD_name'))]"
+        ],
+        "properties": {
+            "isEncrypted": false,
+            "value": "\"6a258e3f-f31d-45b8-a422-bd28c9636e4f\""
+        }
+    },
+    {
+        "type": "Microsoft.Automation/automationAccounts/variables",
+        "apiVersion": "2023-11-01",
+        "name": "[concat(parameters('automationAccounts_UpdateAVD_name'), '/VMSKUSize')]",
+        "dependsOn": [
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_UpdateAVD_name'))]"
+        ],
+        "properties": {
+            "isEncrypted": false,
+            "value": "\"Standard_D2as_v5\""
+        }
+    },
+    {
+        "type": "Microsoft.Automation/automationAccounts/variables",
+        "apiVersion": "2023-11-01",
+        "name": "[concat(parameters('automationAccounts_UpdateAVD_name'), '/VNETName')]",
+        "dependsOn": [
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccounts_UpdateAVD_name'))]"
+        ],
+        "properties": {
+            "isEncrypted": false,
+            "value": "\"AVD-AD-VNET\""
+        }
+    }
     ]
   }
   

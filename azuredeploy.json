@@ -87,7 +87,7 @@
           "logVerbose": true,
           "logProgress": true,
           "publishContentLink": {
-            "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/main/NewHosts.ps1",
+            "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/main/runbooks/NewHosts.ps1",
             "contentVersion": "1.0.0.0"
           }
         }
@@ -106,7 +106,7 @@
           "logVerbose": true,
           "logProgress": true,
           "publishContentLink": {
-            "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/main/NewImage.ps1",
+            "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/main/runbooks/NewImage.ps1",
             "contentVersion": "1.0.0.0"
           }
         }
@@ -125,7 +125,7 @@
           "logVerbose": true,
           "logProgress": true,
           "publishContentLink": {
-            "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/main/UpdateImage.ps1",
+            "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/main/runbooks/UpdateImage.ps1",
             "contentVersion": "1.0.0.0"
           }
         }
@@ -139,7 +139,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-             "value": "[parameters('azureGalleryName')]"
+            "value": "\"[parameters('azureGalleryName')]\""
         }
     },
     {

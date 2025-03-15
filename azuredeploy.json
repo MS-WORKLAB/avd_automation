@@ -92,6 +92,9 @@
       "metadata": {
         "description": "SKU Size for your new AVD Session Hosts, i.e. Standard_D2as_v5"
       }
+    },
+    "credentials_AVDDomainAdmin_password": {
+      "type": "SecureString"
     }
   },
     "resources": [
@@ -109,6 +112,18 @@
         }
 
       },
+      {
+        "type": "Microsoft.Automation/automationAccounts/credentials",
+        "apiVersion": "2023-11-01",
+        "name": "[concat(parameters('automationAccountName'), '/AVDDomainAdmin')]",
+        "dependsOn": [
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
+        ],
+        "properties": {
+            "userName": "[parameters('credentials_AVDDomainAdmin_password')]",
+            "password": "[parameters('credentials_AVDDomainAdmin_password')]"
+        }
+    },
       {
         "type": "Microsoft.Automation/automationAccounts/runbooks",
         "apiVersion": "2019-06-01",

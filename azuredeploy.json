@@ -108,9 +108,7 @@
                 "name": "Basic"
             }
         }
-
-      },     
-      
+      },          
       {
         "type": "Microsoft.Automation/automationAccounts/runbooks",
         "apiVersion": "2019-06-01",

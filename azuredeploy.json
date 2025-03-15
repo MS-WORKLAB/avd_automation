@@ -110,7 +110,6 @@
                 "name": "Basic"
             }
         }
-
       },
       {
         "type": "Microsoft.Automation/automationAccounts/credentials",

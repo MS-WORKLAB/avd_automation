@@ -8,6 +8,19 @@
         "description": "Name of the Azure Automation Account"
       }
     },
+    "subscriptionId": {
+      "type": "string",
+      "metadata": {
+        "description": "Select an Azure Subscription"
+      },
+      "uiDefinition": {
+        "label": "Subscription",
+        "elementType": "ResourceSelector",
+        "resourceType": "Microsoft.Resources/subscriptions",
+        "apiVersion": "2021-01-01"
+      }
+      }
+    },
     "hostPoolName": {
       "type": "string",
       "metadata": {
@@ -20,6 +33,7 @@
         "description": "Prefix for newly created AVD Session Hosts, i.e. AVDVM-"
       }
     },
+
     "azureGalleryName": {
         "type": "string",
         "metadata": {
@@ -62,7 +76,7 @@
       {
         "type": "Microsoft.Automation/automationAccounts",
         "apiVersion": "2019-06-01",
-        "name": "[parameters('automationAccountName')]",
+        "name": "[format('\"{0}\"', parameters('automationAccountName')]",
         "location": "[resourceGroup().location]",
         "properties": {
             "publicNetworkAccess": true,
@@ -151,7 +165,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[parameters('domainName')]"
+            "value": "[format('\"{0}\"', parameters('domainName'))]"
         }
     },
     {
@@ -163,7 +177,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[parameters('domainOUPath')]"
+            "value": "[format('\"{0}\"', parameters('domainOUPath'))]"
         }
     },
     {
@@ -175,7 +189,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[parameters('hostPoolName')]"
+            "value": "[format('\"{0}\"', parameters('hostPoolName'))]"
         }
     },
     {
@@ -187,7 +201,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[parameters('imageDefinition')]"
+            "value": "[format('\"{0}\"', parameters('imageDefinition'))]"
         }
     },
     {
@@ -199,7 +213,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[parameters('newHostNamePrefix')]"
+            "value": "[format('\"{0}\"', parameters('newHostNamePrefix'))]"
         }
     },
     {
@@ -211,7 +225,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[resourceGroup().location]"
+            "value": "[format('\"{0}\"', parameters('region'))]"
         }
     },
     {
@@ -235,7 +249,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[parameters('secondImageRegion')]"
+            "value": "[format('\"{0}\"', parameters('secondImageRegion'))]"
         }
     },
     {
@@ -247,7 +261,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "\"AVD-AD-SUBNET1\""
+            "value": "[format('\"{0}\"', parameters('subnetName'))]"
         }
     },
     {
@@ -259,7 +273,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "\"d1857a3e-d145-4293-b1bf-b528dab49617\""
+            "value": "[format('\"{0}\"', parameters('subscriptionId'))]"
         }
     },
     {
@@ -271,7 +285,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "\"6a258e3f-f31d-45b8-a422-bd28c9636e4f\""
+            "value": "[format('\"{0}\"', parameters('tenandID'))]"
         }
     },
     {
@@ -283,7 +297,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "[parameters('vmSKUSize')]"
+            "value": "[format('\"{0}\"', parameters('vmSKUSize'))]"
         }
     },
     {
@@ -295,7 +309,7 @@
         ],
         "properties": {
             "isEncrypted": false,
-            "value": "\"AVD-AD-VNET\""
+            "value": "[format('\"{0}\"', parameters('vnetname'))]"
         }
     }
     ]

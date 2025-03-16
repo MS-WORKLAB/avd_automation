@@ -97,19 +97,19 @@
       "type": "string"
     },
     "domainPassword": {
-      "type": "string"
+      "type": "SecureString"
     },
     "localUsername": {
       "type": "string"
     },
     "localPassword": {
-      "type": "string"
+      "type": "SecureString"
     },
     "servicePrincipalClientID": {
       "type": "String"
     },
    "servicePrincipalSecret": {
-      "type": "string"
+      "type": "SecureString"
     }
   },
     "resources": [

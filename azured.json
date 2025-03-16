@@ -1,0 +1,18 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "parameters": {
+      "networkConfig": {
+        "type": "object",
+        "metadata": {
+          "description": "Network configuration settings"
+        }
+      },
+      "vmConfig": {
+        "type": "object",
+        "metadata": {
+          "description": "Virtual Machine configuration settings"
+        }
+      }
+    }
+  }
+  

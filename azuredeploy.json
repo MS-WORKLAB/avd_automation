@@ -97,19 +97,19 @@
       "type": "string"
     },
     "domainPassword": {
-      "type": "SecureString"
+      "type": "string"
     },
     "localUsername": {
       "type": "string"
     },
     "localPassword": {
-      "type": "SecureString"
+      "type": "string"
     },
     "servicePrincipalClientID": {
       "type": "String"
     },
    "servicePrincipalSecret": {
-      "type": "SecureString"
+      "type": "string"
     }
   },
     "resources": [
@@ -134,8 +134,8 @@
             "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
         ],
         "properties": {
-            "userName": "[parameters('credentials_AVDDomainAdmin_password')]",
-            "password": "[parameters('credentials_AVDDomainAdmin_password')]"
+            "userName": "[parameters('domainUsername')]",
+            "password": "[parameters('domainPassword')]"
         }
     },
     {
@@ -146,8 +146,8 @@
           "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
       ],
       "properties": {
-          "userName": "azadmin",
-          "password": "[parameters('credentials_AVDLocalAdmin_password')]"
+          "userName": "[parameters('localUsername')]",
+          "password": "[parameters('localPassword')]"
       }
     },
     {
@@ -158,8 +158,8 @@
           "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
       ],
       "properties": {
-          "userName": "8169475d-6f89-4452-aeb6-8cc7592186d0",
-          "password": "[parameters('credentials_AVDServicePrincipal_password')]"
+        "userName": "[parameters('servicePrincipalClientID')]",
+        "password": "[parameters('servicePrincipalSecret')]"
       }
     },
       {

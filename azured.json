@@ -1,18 +1,32 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
     "parameters": {
       "networkConfig": {
         "type": "object",
         "metadata": {
-          "description": "Network configuration settings"
+          "description": "Network Configuration",
+          "group": "Networking"
+        },
+        "defaultValue": {
+          "vnetName": "myVnet",
+          "subnetName": "mySubnet"
         }
       },
       "vmConfig": {
         "type": "object",
         "metadata": {
-          "description": "Virtual Machine configuration settings"
+          "description": "VM Configuration",
+          "group": "Virtual Machines"
+        },
+        "defaultValue": {
+          "vmName": "myVM",
+          "vmSize": "Standard_DS1_v2"
         }
       }
-    }
+    },
+    "variables": {},
+    "resources": [],
+    "outputs": {}
   }
   

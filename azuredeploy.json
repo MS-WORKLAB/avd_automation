@@ -74,51 +74,80 @@
     "imageDefinition": {
       "type": "string",
       "metadata": {
-        "description": "Azure Gallery Image Definition Name"
+        "description": "Azure Gallery Image Definition Name",
+        "group": "Image Information"
       }
     },
     "secondImageRegion": {
       "type": "string",
       "defaultValue": "eastus",
       "metadata": {
-        "description": "Second Image Region Location"
+        "description": "Second Image Region Location",
+        "group": "Image Information"
       }
     },
     "domainName": {
       "type": "string",
       "metadata": {
-        "description": "Domain name, i.e. contoso.lab"
+        "description": "Domain name, i.e. contoso.lab",
+        "group": "Domain Information"
       }
     },
     "domainOUPath": {
       "type": "string",
       "metadata": {
-        "description": "OU Path for your AVD Session Hosts, i.e. OU=AVD,DC=contoso,DC=lab"
+        "description": "OU Path for your AVD Session Hosts, i.e. OU=AVD,DC=contoso,DC=lab",
+        "group": "Domain Information"
       }
     },
     "vmSKUSize": {
       "type": "string",
       "metadata": {
-        "description": "SKU Size for your new AVD Session Hosts, i.e. Standard_D2as_v5"
+        "description": "SKU Size for your new AVD Session Hosts, i.e. Standard_D2as_v5",
+        "group": "AVD Information"
       }
     },
     "domainUsername": {
-      "type": "string"
+      "type": "string",
+      "metadata": {
+        "description": "Add user with delegate permissions for maching joining i.e. user@contoso.com",
+        "group": "Domain Information"
+      }
     },
     "domainPassword": {
-      "type": "SecureString"
+      "type": "SecureString",
+      "metadata": {
+        "description": "Domain User password",
+        "group": "Domain Information"
+      }
     },
     "localUsername": {
-      "type": "string"
+      "type": "string",
+      "metadata": {
+        "description": "Add user with delegate permissions for maching joining i.e. user@contoso.com",
+        "group": "AVD Information"
+      }
     },
     "localPassword": {
-      "type": "SecureString"
+      "type": "SecureString",
+      "metadata": {
+        "description": "Add user with delegate permissions for maching joining i.e. user@contoso.com",
+        "group": "AVD Information"
+      }
     },
     "servicePrincipalClientID": {
-      "type": "String"
+      "type": "String",
+      "metadata": {
+        "description": "Add user with delegate permissions for maching joining i.e. user@contoso.com",
+        "group": "Service Principal"
+      }
     },
    "servicePrincipalSecret": {
-      "type": "SecureString"
+      "type": "SecureString",
+      "metadata": {
+        "description": "Add user with delegate permissions for maching joining i.e. user@contoso.com",
+        "group": "Service Principal"
+      }
     }
   },
     "resources": [

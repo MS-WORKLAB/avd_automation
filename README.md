@@ -78,9 +78,7 @@ Click the button below to deploy the Automation Account to your Azure subscripti
 
 Click the button below to deploy the Logic App to your Azure subscription:
 
-⚠️ You will need to modify some steps in the Logic App after initializing your connections.
-
-### - [LogicAppQuide](https://github.com/MS-WORKLAB/avd_automation/templates/logicapp/quide.md)
+⚠️ You will need to modify some steps in the Logic App after initializing your connections. [LogicAppQuide](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/logicapp/quide.md)
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMS-WORKLAB%2Favd_automation%2Fmain%2Ftemplates%2Flogicapp%2Fazuredeploy.json)
 

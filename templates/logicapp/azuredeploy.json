@@ -1,0 +1,224 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workflows_avdlogic_name": {
+            "defaultValue": "avdlogic",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[parameters('workflows_avdlogic_name')]",
+            "location": "northeurope",
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "$connections": {
+                            "defaultValue": {},
+                            "type": "Object"
+                        }
+                    },
+                    "triggers": {
+                        "When_keywords_are_mentioned": {
+                            "type": "ApiConnectionWebhook",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['teams']['connectionId']"
+                                    }
+                                },
+                                "body": {
+                                    "notificationUrl": "@listCallbackUrl()",
+                                    "channels": [
+                                        "19:f192f92755164b9ba88cb60ac0fc1cf8@thread.tacv2"
+                                    ],
+                                    "groupId": "1acb47e3-5a56-471a-877e-82f00d7eebd9"
+                                },
+                                "path": "/beta/subscriptions/keywordtrigger/threadType/@{encodeURIComponent('channel')}",
+                                "queries": {
+                                    "$search": "updatehosts"
+                                }
+                            },
+                            "conditions": []
+                        }
+                    },
+                    "actions": {
+                        "Compose_on_Message": {
+                            "runAfter": {
+                                "For_each": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Compose",
+                            "inputs": "@string(outputs('Get_message_details'))\r\n"
+                        },
+                        "For_each": {
+                            "foreach": "@triggerBody()?['value']",
+                            "actions": {
+                                "Get_message_details": {
+                                    "type": "ApiConnection",
+                                    "inputs": {
+                                        "host": {
+                                            "connection": {
+                                                "name": "@parameters('$connections')['teams']['connectionId']"
+                                            }
+                                        },
+                                        "method": "post",
+                                        "body": {
+                                            "recipient": {
+                                                "groupId": "1acb47e3-5a56-471a-877e-82f00d7eebd9",
+                                                "channelId": "19:f192f92755164b9ba88cb60ac0fc1cf8@thread.tacv2",
+                                                "parentMessageId": "@item()?['replyToMessageId']"
+                                            }
+                                        },
+                                        "path": "/beta/teams/messages/@{encodeURIComponent(items('For_each')?['messageId'])}/messageType/@{encodeURIComponent('channel')}"
+                                    }
+                                }
+                            },
+                            "runAfter": {},
+                            "type": "Foreach"
+                        },
+                        "Parse_JSON": {
+                            "runAfter": {
+                                "Compose_on_Message": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ParseJson",
+                            "inputs": {
+                                "content": "@outputs('Compose_on_Message')",
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "body": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "body": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "plainTextContent": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "For_each_1": {
+                            "foreach": "@outputs('Parse_JSON')['body']",
+                            "actions": {
+                                "Compose_after_JSON": {
+                                    "type": "Compose",
+                                    "inputs": "@items('For_each_1')?['body']?['body']?['plainTextContent']"
+                                },
+                                "Compose_Result": {
+                                    "runAfter": {
+                                        "Compose_after_JSON": [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type": "Compose",
+                                    "inputs": "@int(last(split(outputs('Compose_after_JSON'), '=')))"
+                                },
+                                "Post_message_in_a_chat_or_channel": {
+                                    "runAfter": {
+                                        "Compose_Result": [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type": "ApiConnection",
+                                    "inputs": {
+                                        "host": {
+                                            "connection": {
+                                                "name": "@parameters('$connections')['teams']['connectionId']"
+                                            }
+                                        },
+                                        "method": "post",
+                                        "body": {
+                                            "recipient": {
+                                                "groupId": "1acb47e3-5a56-471a-877e-82f00d7eebd9",
+                                                "channelId": "19:f192f92755164b9ba88cb60ac0fc1cf8@thread.tacv2"
+                                            },
+                                            "messageBody": "<p class=\"editor-paragraph\">AVD: Provisioning service is started for @{outputs('Compose_Result')} host(s)</p><br>"
+                                        },
+                                        "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('Flow bot')}/location/@{encodeURIComponent('Channel')}"
+                                    }
+                                },
+                                "Create_job": {
+                                    "runAfter": {
+                                        "Post_message_in_a_chat_or_channel": [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type": "ApiConnection",
+                                    "inputs": {
+                                        "host": {
+                                            "connection": {
+                                                "name": "@parameters('$connections')['azureautomation']['connectionId']"
+                                            }
+                                        },
+                                        "method": "put",
+                                        "body": {
+                                            "properties": {
+                                                "parameters": {
+                                                    "sessionHostCount": "@outputs('Compose_Result')"
+                                                }
+                                            }
+                                        },
+                                        "path": "/subscriptions/@{encodeURIComponent('d1857a3e-d145-4293-b1bf-b528dab49617')}/resourceGroups/@{encodeURIComponent('AVD-LAB-RG')}/providers/Microsoft.Automation/automationAccounts/@{encodeURIComponent('UpdateAVD')}/jobs",
+                                        "queries": {
+                                            "x-ms-api-version": "2015-10-31",
+                                            "runbookName": "NewHosts",
+                                            "wait": false
+                                        }
+                                    }
+                                },
+                                "Get_job_output": {
+                                    "runAfter": {
+                                        "Create_job": [
+                                            "Succeeded"
+                                        ]
+                                    },
+                                    "type": "ApiConnection",
+                                    "inputs": {
+                                        "host": {
+                                            "connection": {
+                                                "name": "@parameters('$connections')['azureautomation']['connectionId']"
+                                            }
+                                        },
+                                        "method": "get",
+                                        "path": "/subscriptions/@{encodeURIComponent('d1857a3e-d145-4293-b1bf-b528dab49617')}/resourceGroups/@{encodeURIComponent('AVD-LAB-RG')}/providers/Microsoft.Automation/automationAccounts/@{encodeURIComponent('UpdateAVD')}/jobs/@{encodeURIComponent(body('Create_job')?['properties']?['jobId'])}/output",
+                                        "queries": {
+                                            "x-ms-api-version": "2015-10-31"
+                                        }
+                                    }
+                                }
+                            },
+                            "runAfter": {
+                                "Parse_JSON": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Foreach"
+                        }
+                    },
+                    "outputs": {}
+                }
+
+            }
+        }
+    ]
+}

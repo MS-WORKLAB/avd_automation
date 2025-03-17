@@ -46,14 +46,14 @@
     "vnetname": {
       "type": "string",
       "metadata": {
-        "description": "VNET Name of Session Hosts",
+        "description": "VNET Name of Session Hosts, i.e. avd-vnet",
         "group": "AVD Information"
       }
     },
     "subnetName": {
       "type": "string",
       "metadata": {
-        "description": "Subnet Name of Seassion Hosts",
+        "description": "Subnet Name of Seassion Hosts, i.e. avd-snet",
         "group": "AVD Information"
       }
     },
@@ -80,9 +80,8 @@
     },
     "secondImageRegion": {
       "type": "string",
-      "defaultValue": "eastus",
       "metadata": {
-        "description": "Second Image Region Location",
+        "description": "Second Image Region Location, i.e. eastus",
         "group": "Image Information"
       }
     },
@@ -214,7 +213,7 @@
           "logVerbose": true,
           "logProgress": true,
           "publishContentLink": {
-            "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/main/runbooks/NewHosts.ps1",
+            "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/main/templates/automation/runbooks/NewHosts.ps1",
             "contentVersion": "1.0.0.0"
           }
         }
@@ -233,7 +232,7 @@
           "logVerbose": true,
           "logProgress": true,
           "publishContentLink": {
-            "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/main/runbooks/NewImage.ps1",
+            "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/main/templates/automation/runbooks/NewImage.ps1",
             "contentVersion": "1.0.0.0"
           }
         }
@@ -252,7 +251,7 @@
           "logVerbose": true,
           "logProgress": true,
           "publishContentLink": {
-            "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/main/runbooks/UpdateImage.ps1",
+            "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/main/templates/automation/runbooks/UpdateImage.ps1",
             "contentVersion": "1.0.0.0"
           }
         }

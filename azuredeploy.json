@@ -110,7 +110,7 @@
     "domainUsername": {
       "type": "string",
       "metadata": {
-        "description": "Add user with delegate permissions for maching joining i.e. user@contoso.com",
+        "description": "Add user with delegate permissions for domain join i.e. user@contoso.com",
         "group": "Domain Information"
       }
     },
@@ -124,28 +124,28 @@
     "localUsername": {
       "type": "string",
       "metadata": {
-        "description": "Add user with delegate permissions for maching joining i.e. user@contoso.com",
+        "description": "Local Administrator Username",
         "group": "AVD Information"
       }
     },
     "localPassword": {
       "type": "SecureString",
       "metadata": {
-        "description": "Add user with delegate permissions for maching joining i.e. user@contoso.com",
+        "description": "Local Administrator Password",
         "group": "AVD Information"
       }
     },
     "servicePrincipalClientID": {
       "type": "String",
       "metadata": {
-        "description": "Add user with delegate permissions for maching joining i.e. user@contoso.com",
+        "description": "Service Principal App/Client ID",
         "group": "Service Principal"
       }
     },
    "servicePrincipalSecret": {
       "type": "SecureString",
       "metadata": {
-        "description": "Add user with delegate permissions for maching joining i.e. user@contoso.com",
+        "description": "Service Principal Secret",
         "group": "Service Principal"
       }
     }

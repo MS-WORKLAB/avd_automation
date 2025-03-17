@@ -33,8 +33,7 @@ triggers Automation Account NewHosts
 
 ## Design View
 <details><summary>Show Content</summary>
-
-
+<p align="center">
 [![LogicAppView](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicview.jpg)]
-
+</p>
 </details>

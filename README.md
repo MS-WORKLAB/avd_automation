@@ -62,7 +62,7 @@ The Azure Image Builder needs a Managed Identity to be able to create the image.
 
 service principal creation az ad sp create-for-rbac --name "myServicePrincipal" --role "Contributor"
 
-[![Launch Cloud Shell](https://aka.ms/cloudshellbutton)](https://shell.azure.com/?shell=AzurePowerShell&command=az%20group%20list)
+[![Launch Cloud Shell](https://aka.ms/cloudshellbutton)](https://shell.azure.com/?shell=AzurePowerShell)
 
 # Automation Account
 

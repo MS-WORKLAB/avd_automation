@@ -29,7 +29,3 @@ triggers Automation Account UpdateImage
 AVD: update host = 12 
 ```
 triggers Automation Account NewHosts
-
-##  Visual View
-
-[![LogicAppView](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicapp.jpg)]

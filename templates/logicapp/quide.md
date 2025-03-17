@@ -1,10 +1,9 @@
 # Create automated process for AVD Image Update 
-[![LogicAppView](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicapp.jpg)]
 
 ## Useful links
 
 - [Azure Logic Apps](https://learn.microsoft.com/en-us/azure/logic-apps/logic-apps-overview)
-- [Microsoft Graph API for MSTeams]([![LogicAppView](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicapp.jpg)])
+- [Microsoft Graph API for MSTeams](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicapp.jpg)
 
 ##  Summary
 
@@ -30,3 +29,7 @@ triggers Automation Account UpdateImage
 AVD: update host = 12 
 ```
 triggers Automation Account NewHosts
+
+##  Visual View
+
+[![LogicAppView](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicapp.jpg)]

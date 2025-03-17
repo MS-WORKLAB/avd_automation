@@ -11,55 +11,64 @@
     "subscriptionId": {
       "type": "string",
       "metadata": {
-        "description": "Subscription ID of AVD Host Pool, i.e. 00000000-0000-0000-0000-000000000000"
+        "description": "Subscription ID of AVD Host Pool, i.e. 00000000-0000-0000-0000-000000000000",
+         "group": "Site Information"
       }
     },
     "tenandID": {
       "type": "string",
       "metadata": {
-        "description": "Tenand ID of AVD Host Pool, i.e. 00000000-0000-0000-0000-000000000000"
+        "description": "Tenand ID of AVD Host Pool, i.e. 00000000-0000-0000-0000-000000000000",
+        "group": "Site Information"
       }
     },
     "regionName": {
       "type": "string",
       "metadata": {
-        "description": "Region of AVD Host Pool, i.e. germanywestcentral"
+        "description": "Region of AVD Host Pool, i.e. germanywestcentral",
+        "group": "Site Information"
       }
     },
     "resourceGroupName": {
       "type": "string",
       "metadata": {
-        "description": "Resource Group Name of AVD Host Pool"
+        "description": "Resource Group Name of AVD Host Pool",
+        "group": "Site Information"
       }
     },
     "hostPoolName": {
       "type": "string",
       "metadata": {
-        "description": "Existing Host Pool Name"
+        "description": "Existing Host Pool Name",
+        "group": "AVD Information"
       }
     },
     "vnetname": {
       "type": "string",
       "metadata": {
-        "description": "VNET Name of Session Hosts"
+        "description": "VNET Name of Session Hosts",
+        "group": "AVD Information"
       }
     },
     "subnetName": {
       "type": "string",
       "metadata": {
-        "description": "Subnet Name of Seassion Hosts"
+        "description": "Subnet Name of Seassion Hosts",
+        "group": "AVD Information"
       }
     },
     "newHostNamePrefix": {
       "type": "string",
       "metadata": {
-        "description": "Prefix for newly created AVD Session Hosts, i.e. AVDVM-"
+        "description": "Prefix for newly created AVD Session Hosts, i.e. AVDVM-",
+        "group": "AVD Information"
       }
     },
     "azureGalleryName": {
         "type": "string",
         "metadata": {
-          "description": "Azure Gallery name"
+          "description": "Azure Gallery name",
+          "group": "Image Information"
         }
     },
     "imageDefinition": {

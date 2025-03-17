@@ -59,10 +59,13 @@ The Azure Image Builder needs a Managed Identity to be able to create the image.
 ```
 
 # Service Principal
+
+Create Service Principal for automation tasks and keep the result values:
 ```bash
-az ad sp create-for-rbac --name "AVDServicePrincipal" --role "Contributor"
+$subs = az account list --output json | ConvertFrom-Json; $subs | ForEach-Object {Write-Host "$($subs.IndexOf($_) + 1). $($_.name) ($($_.id))"}; $selection = Read-Host "Please select Subscription number"; az account set --subscription $subs[$selection - 1].id
+az ad sp create-for-rbac --name "AVDServicePrincipal" --role "Contributor" --scope "/subscriptions/$(az account show --query id --output tsv)"
 ```
-[![Launch Cloud Shell](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/button.png)](https://shell.azure.com/?shell=AzurePowerShell)
+[![Launch Cloud Shell](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/button.png)](https://shell.azure.com/?shell=azurecli)
 
 # Automation Account
 

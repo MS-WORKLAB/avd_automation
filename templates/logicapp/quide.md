@@ -19,12 +19,12 @@ All these configurations are parameterized, allowing users to modify them accord
 AVD: new image  
 ```
 triggers Automation Account NewImage
-
+##
 ```bash
 AVD: version based = MASTER-0-0-2  
 ```
 triggers Automation Account UpdateImage
-
+##
 ```bash
 AVD: update host = 12 
 ```

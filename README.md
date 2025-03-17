@@ -4,18 +4,24 @@ This repo contains simple templates and script to ...........
 ## Useful links
 - [quick-start-custom-image](https://github.com/Azure/azure-quickstart-templates/blob/master/quickstarts/microsoft.devcenter/devbox-with-customized-image/customized-image/customized-image.bicep)
 
-##  How-To / Summary
-- Follow the steps in the [Quickstart: Configure Microsoft Dev Box](https://learn.microsoft.com/en-us/azure/dev-box/quickstart-configure-dev-box-service) until you reach the point of creating a custom image. So the prerequisite steps / resources required (and not covered by this Bicep) are:
-    - Create a [Dev Center](https://learn.microsoft.com/en-us/azure/dev-box/quickstart-configure-dev-box-service#create-a-dev-center)
-        - Create a [Vnet](https://learn.microsoft.com/en-us/azure/dev-box/how-to-configure-network-connections?tabs=AzureADJoin#create-a-virtual-network-and-subnet) and [attach it to the dev center](https://learn.microsoft.com/en-us/azure/dev-box/how-to-configure-network-connections?tabs=AzureADJoin#attach-a-network-connection-to-a-dev-center)
-        - Create a [Project](https://learn.microsoft.com/en-us/azure/dev-box/quickstart-configure-dev-box-service#create-a-project)
-- Before yoy proceed with the next steps, you need to create a custom image. The documentation is not 100% correct. At the time of writing (March 2025) the OS SKU suggested in the detailed steps is not supported, as a custom image for DevBox. 
-    - Configure the Bicep.param file and run the deploy.azcli script (essentialy the same as the [quick-start-custom-image] [Create a custom image](https://learn.microsoft.com/en-us/azure/dev-box/how-to-customize-devbox-azure-image-builder). (BUT This is having a lot of issues - Powershell, not correct OS SKUs, no correct ARM templates - needs to be fixed)
-    - [Configure the newly created galley / attach it to the Dev Center](https://learn.microsoft.com/en-us/azure/dev-box/how-to-configure-azure-compute-gallery#attach-a-gallery-to-a-dev-center)
-    - Create a [Dev Box Definition](https://learn.microsoft.com/en-us/azure/dev-box/quickstart-configure-dev-box-service#create-a-dev-box-definition)
-- Create a [Dev Box Pool](https://learn.microsoft.com/en-us/azure/dev-box/quickstart-configure-dev-box-service#create-a-dev-box-pool)
-    - Provide [access to a dev box project](https://learn.microsoft.com/en-us/azure/dev-box/quickstart-configure-dev-box-service#provide-access-to-a-dev-box-project)
-- [Create a Dev Box](https://learn.microsoft.com/en-us/azure/dev-box/quickstart-create-dev-box?tabs=no-existing-dev-boxes#create-a-dev-box)
+## Summary
+
+- Create a New VM from an Existing Image Version in Azure Gallery:
+
+    - Use the Azure CLI or ARM template to deploy a new virtual machine (VM) based on a specific image version from the Azure Marketplace or custom image gallery.
+    - Customize the VM configuration (size, network settings, etc.) based on requirements.
+    - Provision and deploy the VM, ensuring it is ready for use within your environment.
+    - Create a New Image Version Based on a Specific VM:
+
+- Capture the state of an existing VM by creating a custom image version from it.
+    - Use the Azure CLI or ARM template to automate the process of creating a new image version.
+    - The new image version will be based on the VM’s current configuration, including installed software, settings, and customizations.
+    - Create New Hosts for Azure Virtual Desktop (AVD) Session Hosts:
+
+- Automate the creation of new AVD session host VMs by using an existing image or custom image version.
+    - Configure the new hosts as part of the AVD environment, ensuring they are added to the correct host pool and ready for user sessions.
+    - Implement automation to scale the number of session hosts dynamically, ensuring optimal performance and resource availability for end-users.
+
 
 ### TL;DR; Steps
 1. Create a Service Principal 

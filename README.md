@@ -18,18 +18,12 @@ This repo contains simple templates and script to ...........
 - [Create a Dev Box](https://learn.microsoft.com/en-us/azure/dev-box/quickstart-create-dev-box?tabs=no-existing-dev-boxes#create-a-dev-box)
 
 ### TL;DR; Steps
-1. Create a Dev Center
-2. Create a Vnet (or use an existing one) and make the vnet connection - attach it to the Dev Center
-3. Create a Project
-4. Run the the Bicep deployment
-5. Attach the Gallery created by the bicep to the Dev Center
-6. Create a Dev Box Definition in the Dev Center
-
-### WSL in custom image
-The custom image created by the Bicep is having WSL2 installed. The WSL2 is enabled and updated, but when you boot for the first time it asks you to update WSL again (currently to version 2.4.11).
-- to update open a terminal with administrator rights and run `wsl.exe --update`. 
-- To install UBUNTU 22.04 run `wsl.exe --install -d Ubuntu-22.02`
-    - Alternatively you can install UBUNTU 24.04 with `wsl.exe --install -d Ubuntu-24.04`
+1. Create a Service Principal 
+2. Create Automation Account for 3 main tasks 
+    a. New VM Based on AZ Gallery Image
+    b. Capture existing VM as new Version
+    c. Create new AVD Hosts
+3. Create Logic App to trigger automations
 
 
 ## NOTE: Image Builder Managed Identity
@@ -63,17 +57,23 @@ The Azure Image Builder needs a Managed Identity to be able to create the image.
 
 
 ```
-# Deploy Logic App
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMS-WORKLAB%2Favd_automation%2Fmain%2Ftemplates%2Flogicapp%2Fazuredeploy.json)
-
-
-
-# Automation Account
-
-Click the button below to deploy this Logic App and Automation Account to your Azure subscription:
+# Service Principal
 
 service principal creation az ad sp create-for-rbac --name "myServicePrincipal" --role "Contributor"
 
+[![Launch Cloud Shell](https://aka.ms/cloudshellbutton)](https://shell.azure.com/?shell=AzurePowerShell&command=az%20group%20list)
+
+# Automation Account
+
+Click the button below to deploy the Automation Account to your Azure subscription:
+
+
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMS-WORKLAB%2Favd_automation%2Fmain%2Ftemplates%2Fautomation%2Fazuredeploy.json)
+
+# [Optional] Triger via Microsoft Teams using Logic App
+
+Click the button below to deploy the Logic App to your Azure subscription:
+
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMS-WORKLAB%2Favd_automation%2Fmain%2Ftemplates%2Flogicapp%2Fazuredeploy.json)
 

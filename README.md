@@ -8,7 +8,7 @@ This repo contains simple templates and script to ...........
 
 - Create a New VM from an Existing Image Version in Azure Gallery:
 
-    - Use the Azure CLI or ARM template to deploy a new virtual machine (VM) based on a specific image version from the Azure Marketplace or custom image gallery.
+    - Use the Azure CLI to deploy a new virtual machine (VM) based on a specific image version from Azure image gallery.
     - Customize the VM configuration (size, network settings, etc.) based on requirements.
     - Provision and deploy the VM, ensuring it is ready for use within your environment.
     - Create a New Image Version Based on a Specific VM:
@@ -84,7 +84,7 @@ Click the button below to deploy the Automation Account to your Azure subscripti
 
 Click the button below to deploy the Logic App to your Azure subscription:
 
-⚠️ You will need to modify some steps in the Logic App after initializing your connections. [LogicAppQuide](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/logicapp/quide.md)
+⚠️ You will need to modify some steps in the Logic App after initializing your connections. [LogicApp Guide](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/logicapp/GUIDE.md)
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMS-WORKLAB%2Favd_automation%2Fmain%2Ftemplates%2Flogicapp%2Fazuredeploy.json)
 

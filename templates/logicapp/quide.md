@@ -30,3 +30,31 @@ triggers Automation Account UpdateImage
 AVD: update host = 12 
 ```
 triggers Automation Account NewHosts
+
+
+
+> This is a blockquote.
+
+
+
+- [x] Completed task
+- [ ] Incomplete task
+
+**22. References and Citations:**
+GitHub Flavored Markdown does not support references or citation syntax found in some other Markdown variants.
+
+**23. Definition Lists:**
+GitHub's Markdown does not support definition lists (terms and definitions) as part of the standard syntax.
+
+**24
+::contentReference[oaicite:1]{index=1}
+
+
+Inline math: $E = mc^2$
+
+Display math:
+$$
+\int_{a}^{b} x^2 \, dx
+$$
+
+Here's a sentence with a footnote reference. [^1]

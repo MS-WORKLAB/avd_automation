@@ -31,5 +31,10 @@ AVD: update host = 12
 triggers Automation Account NewHosts
 
 
-# Design View
+## Design View
+<details><summary>Show Content</summary>
+
+
 [![LogicAppView](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicview.jpg)]
+
+</details>

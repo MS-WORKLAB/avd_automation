@@ -63,12 +63,13 @@ The Azure Image Builder needs a Managed Identity to be able to create the image.
 
 
 ```
+# Deploy Logic App
+
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMS-WORKLAB%2Favd_automation%2Fmain%2Ftemplates%2Flogicapp%2Fazuredeploy.json)
 
 
 
-
-
-# Deploy Logic App & Automation Account
+# Automation Account
 
 Click the button below to deploy this Logic App and Automation Account to your Azure subscription:
 

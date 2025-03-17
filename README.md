@@ -32,37 +32,9 @@ This repo contains simple templates and script to ...........
 3. Create Logic App to trigger automations
 
 
-## NOTE: Image Builder Managed Identity
-The Azure Image Builder needs a Managed Identity to be able to create the image. So you need to add a new (or existing) Managed Identity in the imageTemplate (Microsoft.VirtualMachineImages/imageTemplates) that needs to have a custom role definition assigned. as described below. The Role Assignment can be done on the whole RG hosting the image Library
-
-```json
-{
-    "Name": "Azure Image Builder <Image-Name>",
-    "IsCustom": true,
-    "Description": "Image Builder access to create resources for the image build, you should delete or split out as appropriate",
-    "Actions": [
-        "Microsoft.Compute/galleries/read",
-        "Microsoft.Compute/galleries/images/read",
-        "Microsoft.Compute/galleries/images/versions/read",
-        "Microsoft.Compute/galleries/images/versions/write",
-
-        "Microsoft.Compute/images/write",
-        "Microsoft.Compute/images/read",
-        "Microsoft.Compute/images/delete"
-    ],
-    "NotActions": [
-  
-    ],
-    "AssignableScopes": [
-      "/subscriptions/<subscriptionID>/resourceGroups/<rgName>"
-    ]
-  }
+## NOTE: 
 
 
-
-
-
-```
 
 # Service Principal
 

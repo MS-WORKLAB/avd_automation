@@ -26,7 +26,7 @@ This project is not an official Microsoft-supported implementation. It is provid
 
     - Use MS Teams chat using VM Name as variable input to trigger Automation Account via LogicApp.
     - Capture the state of an existing VM by creating a custom image version from it.
-    - Use Azure CLI to automate the process of creating a new image version into your definition.
+    - Use Azure CLI to automate the process of creating a new image version into your definition, increasing the minor number of versioning i.e 0.0.2>0.0.3, 0.1.4>0.1.5.
     - The new image version will be based on the VM’s current configuration, including installed software, settings, and customizations.
      
 - Create New Hosts for Azure Virtual Desktop (AVD) Host Pool:
@@ -64,6 +64,7 @@ https://github.com/user-attachments/assets/1f89b0d9-ed04-4b33-9307-ed0e96356568
 
 - Parallel execution of hosts creation
 - include Azure Image Builder on process
+- Ability to auto update also the major version number
 - Automation to generalize vm
 
 # Installation

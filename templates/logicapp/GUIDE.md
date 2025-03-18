@@ -22,14 +22,14 @@ AVD: new image
 triggers Automation Account NewImage
 ##
 ```bash
-AVD: version based = MASTER-0-0-2  
+AVD: version based = MASTERVM-0-0-2  
 ```
-triggers Automation Account UpdateImage
+triggers Automation Account UpdateImage using as capture vm the MASTERVM-0-0-2
 ##
 ```bash
 AVD: update host = 12 
 ```
-triggers Automation Account NewHosts
+triggers Automation Account NewHosts for 12 VMs/AVD Hosts
 
 
 ## Design View
@@ -68,4 +68,4 @@ triggers Automation Account NewHosts
 </p>
 </details> 
 
-[![Back To Install](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/back.png)](https://github.com/MS-WORKLAB/avd_automation)
+[![Back To Install](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/back.png)](https://github.com/MS-WORKLAB/avd_automation?tab=readme-ov-file#installation)

@@ -33,22 +33,17 @@ This project is not an official Microsoft-supported implementation. It is provid
     a. New VM Based on AZ Gallery Image
     b. Capture existing VM as new Version
     c. Create new AVD Hosts
-3. Create Logic App to trigger automations
+3. Create Logic App to trigger automations via MS Teams
 
-
-## NOTE: 
-
-## veltioseis
-
-parallel execution of creation hosts
-automation to generalize vm
-include image builder process
-
-
-
+# Video Snap
 
 https://github.com/user-attachments/assets/1f89b0d9-ed04-4b33-9307-ed0e96356568
 
+## Next Steps
+
+- Parallel execution of hosts creation
+- include Azure Image Builder on process
+- Automation to generalize vm
 
 # Service Principal
 

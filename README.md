@@ -46,6 +46,10 @@ include image builder process
 
 
 
+
+https://github.com/user-attachments/assets/1f89b0d9-ed04-4b33-9307-ed0e96356568
+
+
 # Service Principal
 
 Create Service Principal for automation tasks and keep the result values:

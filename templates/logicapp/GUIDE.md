@@ -11,8 +11,8 @@ The Logic App monitors a specific Teams Channel for messages containing the keyw
 
 All these configurations are parameterized, allowing users to modify them according to their specific requirements.
 
-⚠️ Two of the loggic app triggers need '=' sign to get dynamic parameter for next steps.
-⚠️ You will need to modify MS Teams and Automation Account steps in the Logic App after initializing your connections.
+- ⚠️ Two of the loggic app triggers need '=' sign to get dynamic parameter for next steps.
+- ⚠️ You will need to modify MS Teams and Automation Account steps in the Logic App after initializing your connections.
 
 ##  Examples
 

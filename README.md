@@ -1,10 +1,10 @@
 # Create automated process for AVD Image update 
 
-This repo contains simple templates and script to Automate VM and AVD session host provisioning in Azure using MS Teams chat and LogicApps to trigger an Automation Account, leveraging Azure CLI for VM deployment, image creation, and scaling based on Azure Compute Gallery images.
+This repo contains simple templates and script to Automate VM and AVD session hosts provisioning in Azure using MS Teams chat and LogicApps to trigger an Automation Account, leveraging Azure CLI for VM deployment, image creation, and scaling based on Azure Compute Gallery images.
 
 ## Disclaimer
 
-This project is not an official Microsoft-supported implementation. It is provided as-is, without any warranties or guarantees. Use at your own risk. Microsoft is not responsible for any issues, damages, or liabilities arising from the use of this project.
+This project is not an official Microsoft-supported implementation. It is provided as-is, without any warranties. Use at your own risk. Microsoft is not responsible for any issues, damages, or liabilities arising from the use of this project.
 
 ## Useful links
 
@@ -20,6 +20,7 @@ This project is not an official Microsoft-supported implementation. It is provid
     - Use Azure CLI to deploy a new virtual machine based on a specific image version from Azure Compute gallery.
     - You can Customize the VM configuration (size, network settings, etc.) based on requirements.
     - Provision and deploy the VM, you can implement changes on MASTERVM-#-#-# ensuring it is ready for use within your environment.
+    - Generalize the VM manually before next step.
 
 - Create a New Image Version Based on a Specific VM:
 
@@ -28,12 +29,13 @@ This project is not an official Microsoft-supported implementation. It is provid
     - Use Azure CLI to automate the process of creating a new image version into your definition.
     - The new image version will be based on the VM’s current configuration, including installed software, settings, and customizations.
      
-- Create New Hosts for Azure Virtual Desktop (AVD) Session Hosts:
+- Create New Hosts for Azure Virtual Desktop (AVD) Host Pool:
 
     - Use MS Teams chat using number of hosts as variable input to trigger Automation Account via LogicApp.
-    - Automate the creation of new AVD session host VMs by using an existing Azure Compute Gallery image.
-    - Configure the new hosts as part of the AVD environment, ensuring they are added to the correct host pool and ready for user sessions.
+    - Automate the creation of new AVD session host(s) VMs by using an existing Azure Compute Gallery image.
+    - Configure the new host(s) as part of the AVD environment, ensuring they are added to the correct host pool and ready for user sessions.
     - Implement automation to scale the number of session hosts dynamically, ensuring optimal performance and resource availability for end-users.
+    - Enable drain mode and remove manually the old version hosts from your AVD Host pool
 
 ## Requirements
 
@@ -41,7 +43,7 @@ This project is not an official Microsoft-supported implementation. It is provid
  - At least Microsoft Entra ID P2 
  - Azure Compute Gallery
  - VM Image Definition
- - At laest one VM image version
+ - VM image Version
  - AVD Host Pool
 
 
@@ -77,16 +79,15 @@ az ad sp create-for-rbac --name "AVDServicePrincipal" --role "Contributor" --sco
 
 ## Automation Account
 
-Click the button below to deploy the Automation Account to your Azure subscription:
-
+Click the button below to deploy the Automation Account to your Azure subscription: [Automation Guide](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/automation/GUIDE.md)
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMS-WORKLAB%2Favd_automation%2Fmain%2Ftemplates%2Fautomation%2Fazuredeploy.json)
 
 ## Triger via Microsoft Teams using Logic App
 
-Click the button below to deploy the Logic App to your Azure subscription:
+Click the button below to deploy the Logic App to your Azure subscription: [LogicApp Guide](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/logicapp/GUIDE.md)
 
-⚠️ You will need to modify some steps in the Logic App after initializing your connections. [LogicApp Guide](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/logicapp/GUIDE.md)
+⚠️ You will need to modify some steps in the Logic App after initializing your connections. 
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMS-WORKLAB%2Favd_automation%2Fmain%2Ftemplates%2Flogicapp%2Fazuredeploy.json)
 

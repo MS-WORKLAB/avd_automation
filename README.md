@@ -34,6 +34,11 @@ This repo contains simple templates and script to ...........
 
 ## NOTE: 
 
+## veltioseis
+
+parallel execution of creation hosts
+automation to generalize vm
+
 
 
 # Service Principal

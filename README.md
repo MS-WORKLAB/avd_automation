@@ -90,7 +90,7 @@ Click the button below to deploy the Automation Account to your Azure subscripti
 
 Click the button below to deploy the Logic App to your Azure subscription: [LogicApp Guide](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/logicapp/GUIDE.md)
 
-⚠️ You will need to modify some steps in the Logic App after initializing your connections. 
+⚠️ Once your connections are initialized, update the Teams and Automation steps in the Logic App. 
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMS-WORKLAB%2Favd_automation%2Fmain%2Ftemplates%2Flogicapp%2Fazuredeploy.json)
 

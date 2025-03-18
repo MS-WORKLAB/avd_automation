@@ -1,36 +1,51 @@
-# Create automated process for AVD Image Update 
-This repo contains simple templates and script to ...........
+# Create automated process for AVD Image update 
+This repo contains simple templates and script to Automate VM and AVD session host provisioning in Azure using MS Teams chat and LogicApps to trigger an Automation Account, leveraging Azure CLI for VM deployment, image creation, and scaling based on Azure Compute Gallery images.
 
 ## Useful links
 - [Azure-Compute-Gallery](https://learn.microsoft.com/en-us/azure/virtual-machines/azure-compute-gallery)
-- [AZ desktopvirtualization](https://learn.microsoft.com/en-us/cli/azure/desktopvirtualization/hostpool?view=azure-cli-latest)
+- [AZ-desktopvirtualization](https://learn.microsoft.com/en-us/cli/azure/desktopvirtualization/hostpool?view=azure-cli-latest)
 
 ## Disclaimer
 This project is not an official Microsoft-supported implementation. It is provided as-is, without any warranties or guarantees. Use at your own risk. Microsoft is not responsible for any issues, damages, or liabilities arising from the use of this project.
 
 ## Summary
 
-- Create a New VM from an Existing Image Version in Azure Gallery:
+- Create a New VM from an Existing Image Version in Azure Compute Gallery:
 
-    - Use the Azure CLI to deploy a new virtual machine (VM) based on a specific image version from Azure image gallery.
-    - Customize the VM configuration (size, network settings, etc.) based on requirements.
-    - Provision and deploy the VM, ensuring it is ready for use within your environment.
-    - Create a New Image Version Based on a Specific VM:
+    - Use MS Teams chat to trigger Automation Account via LogicApp.
+    - Use Azure CLI to deploy a new virtual machine based on a specific image version from Azure Compute gallery.
+    - You can Customize the VM configuration (size, network settings, etc.) based on requirements.
+    - Provision and deploy the VM, you can implement changes on MASTERVM-#-#-# ensuring it is ready for use within your environment.
 
-- Capture the state of an existing VM by creating a custom image version from it.
-    - Use the Azure CLI or ARM template to automate the process of creating a new image version.
+- Create a New Image Version Based on a Specific VM:
+
+    - Use MS Teams chat using VM Name as variable input to trigger Automation Account via LogicApp.
+    - Capture the state of an existing VM by creating a custom image version from it.
+    - Use Azure CLI to automate the process of creating a new image version into your definition.
     - The new image version will be based on the VM’s current configuration, including installed software, settings, and customizations.
-    - Create New Hosts for Azure Virtual Desktop (AVD) Session Hosts:
+     
+- Create New Hosts for Azure Virtual Desktop (AVD) Session Hosts:
 
-- Automate the creation of new AVD session host VMs by using an existing image or custom image version.
+    - Use MS Teams chat using number of hosts as variable input to trigger Automation Account via LogicApp.
+    - Automate the creation of new AVD session host VMs by using an existing Azure Compute Gallery image.
     - Configure the new hosts as part of the AVD environment, ensuring they are added to the correct host pool and ready for user sessions.
     - Implement automation to scale the number of session hosts dynamically, ensuring optimal performance and resource availability for end-users.
+
+## Requirements
+
+ - Active Azure Subscription
+ - At least Microsoft Entra ID P2 
+ - Azure Compute Gallery
+ - VM Image Definition
+ - At laest one VM image version
+ - AVD Host Pool
+
 
 
 ### TL;DR; Steps
 1. Create a Service Principal 
 2. Create Automation Account for 3 main tasks 
-    a. New VM Based on AZ Gallery Image
+    a. New VM Based on AZ Compute Gallery Image
     b. Capture existing VM as new Version
     c. Create new AVD Hosts
 3. Create Logic App to trigger automations via MS Teams

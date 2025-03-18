@@ -18,7 +18,7 @@ All these configurations are parameterized, allowing users to modify them accord
 | Parameter                     | Description |
 |--------------------------------|-------------|
 | Automation Account Name       |  |
-| ** Site Information **          |  |
+| **Site Information**          |  |
 | Subscription Id               |  |
 | Tenant ID                     |  |
 | Region Name                   |  |

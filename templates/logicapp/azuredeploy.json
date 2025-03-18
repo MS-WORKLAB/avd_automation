@@ -2,7 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "workflows_avdlogic_name": {
+        "workflows_avdl2_name": {
             "defaultValue": "avdlogic",
             "type": "String"
         }
@@ -12,8 +12,8 @@
         {
             "type": "Microsoft.Logic/workflows",
             "apiVersion": "2017-07-01",
-            "name": "[parameters('workflows_avdlogic_name')]",
-            "location": "northeurope",
+            "name": "[parameters('workflows_avdl2_name')]",
+            "location": "germanywestcentral",
             "properties": {
                 "state": "Enabled",
                 "definition": {
@@ -43,22 +43,12 @@
                                 },
                                 "path": "/beta/subscriptions/keywordtrigger/threadType/@{encodeURIComponent('channel')}",
                                 "queries": {
-                                    "$search": "updatehosts"
+                                    "$search": "AVD"
                                 }
-                            },
-                            "conditions": []
+                            }
                         }
                     },
                     "actions": {
-                        "Compose_on_Message": {
-                            "runAfter": {
-                                "For_each": [
-                                    "Succeeded"
-                                ]
-                            },
-                            "type": "Compose",
-                            "inputs": "@string(outputs('Get_message_details'))\r\n"
-                        },
                         "For_each": {
                             "foreach": "@triggerBody()?['value']",
                             "actions": {
@@ -78,12 +68,21 @@
                                                 "parentMessageId": "@item()?['replyToMessageId']"
                                             }
                                         },
-                                        "path": "/beta/teams/messages/@{encodeURIComponent(items('For_each')?['messageId'])}/messageType/@{encodeURIComponent('channel')}"
+                                        "path": "/beta/teams/messages/@{encodeURIComponent(item()?['messageId'])}/messageType/@{encodeURIComponent('channel')}"
                                     }
                                 }
                             },
                             "runAfter": {},
                             "type": "Foreach"
+                        },
+                        "Compose_on_Message": {
+                            "runAfter": {
+                                "For_each": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Compose",
+                            "inputs": "@string(outputs('Get_message_details'))\r\n"
                         },
                         "Parse_JSON": {
                             "runAfter": {
@@ -122,89 +121,283 @@
                             "actions": {
                                 "Compose_after_JSON": {
                                     "type": "Compose",
-                                    "inputs": "@items('For_each_1')?['body']?['body']?['plainTextContent']"
+                                    "inputs": "@item()?['body']?['body']?['plainTextContent']"
                                 },
-                                "Compose_Result": {
+                                "Condition_check_image": {
+                                    "actions": {
+                                        "Post_message_after_Image": {
+                                            "type": "ApiConnection",
+                                            "inputs": {
+                                                "host": {
+                                                    "connection": {
+                                                        "name": "@parameters('$connections')['teams']['connectionId']"
+                                                    }
+                                                },
+                                                "method": "post",
+                                                "body": {
+                                                    "recipient": {
+                                                        "groupId": "1acb47e3-5a56-471a-877e-82f00d7eebd9",
+                                                        "channelId": "19:f192f92755164b9ba88cb60ac0fc1cf8@thread.tacv2"
+                                                    },
+                                                    "messageBody": "<p class=\"editor-paragraph\">AUTO: Provisioning service has started creating a new MASTER-#.#.# VM based on the latest AZGallery version.</p>"
+                                                },
+                                                "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('Flow bot')}/location/@{encodeURIComponent('Channel')}"
+                                            }
+                                        },
+                                        "Create_job_image": {
+                                            "runAfter": {
+                                                "Post_message_after_Image": [
+                                                    "Succeeded"
+                                                ]
+                                            },
+                                            "type": "ApiConnection",
+                                            "inputs": {
+                                                "host": {
+                                                    "connection": {
+                                                        "name": "@parameters('$connections')['azureautomation']['connectionId']"
+                                                    }
+                                                },
+                                                "method": "put",
+                                                "path": "/subscriptions/@{encodeURIComponent('d1857a3e-d145-4293-b1bf-b528dab49617')}/resourceGroups/@{encodeURIComponent('AVD-LAB-RG')}/providers/Microsoft.Automation/automationAccounts/@{encodeURIComponent('UpdateAVD')}/jobs",
+                                                "queries": {
+                                                    "x-ms-api-version": "2015-10-31",
+                                                    "runbookName": "NewImage",
+                                                    "wait": false
+                                                }
+                                            }
+                                        },
+                                        "Get_job_output_image": {
+                                            "runAfter": {
+                                                "Create_job_image": [
+                                                    "Succeeded"
+                                                ]
+                                            },
+                                            "type": "ApiConnection",
+                                            "inputs": {
+                                                "host": {
+                                                    "connection": {
+                                                        "name": "@parameters('$connections')['azureautomation']['connectionId']"
+                                                    }
+                                                },
+                                                "method": "get",
+                                                "path": "/subscriptions/@{encodeURIComponent('d1857a3e-d145-4293-b1bf-b528dab49617')}/resourceGroups/@{encodeURIComponent('AVD-LAB-RG')}/providers/Microsoft.Automation/automationAccounts/@{encodeURIComponent('UpdateAVD')}/jobs/@{encodeURIComponent(body('Create_job_image')?['properties']?['jobId'])}/output",
+                                                "queries": {
+                                                    "x-ms-api-version": "2015-10-31"
+                                                }
+                                            }
+                                        }
+                                    },
                                     "runAfter": {
                                         "Compose_after_JSON": [
                                             "Succeeded"
                                         ]
                                     },
-                                    "type": "Compose",
-                                    "inputs": "@int(last(split(outputs('Compose_after_JSON'), '=')))"
-                                },
-                                "Post_message_in_a_chat_or_channel": {
-                                    "runAfter": {
-                                        "Compose_Result": [
-                                            "Succeeded"
-                                        ]
-                                    },
-                                    "type": "ApiConnection",
-                                    "inputs": {
-                                        "host": {
-                                            "connection": {
-                                                "name": "@parameters('$connections')['teams']['connectionId']"
+                                    "else": {
+                                        "actions": {
+                                            "Condition_check_version": {
+                                                "actions": {
+                                                    "Compose_Result_Version": {
+                                                        "type": "Compose",
+                                                        "inputs": "@trim(last(split(outputs('Compose_after_JSON'), '=')))"
+                                                    },
+                                                    "Post_message_after_Version": {
+                                                        "runAfter": {
+                                                            "Compose_Result_Version": [
+                                                                "Succeeded"
+                                                            ]
+                                                        },
+                                                        "type": "ApiConnection",
+                                                        "inputs": {
+                                                            "host": {
+                                                                "connection": {
+                                                                    "name": "@parameters('$connections')['teams']['connectionId']"
+                                                                }
+                                                            },
+                                                            "method": "post",
+                                                            "body": {
+                                                                "recipient": {
+                                                                    "groupId": "1acb47e3-5a56-471a-877e-82f00d7eebd9",
+                                                                    "channelId": "19:f192f92755164b9ba88cb60ac0fc1cf8@thread.tacv2"
+                                                                },
+                                                                "messageBody": "<p class=\"editor-paragraph\">AUTO: Provisioning service has started creating a new version based on @{outputs('Compose_Result_Version')}</p>"
+                                                            },
+                                                            "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('Flow bot')}/location/@{encodeURIComponent('Channel')}"
+                                                        }
+                                                    },
+                                                    "Create_job_version": {
+                                                        "runAfter": {
+                                                            "Post_message_after_Version": [
+                                                                "Succeeded"
+                                                            ]
+                                                        },
+                                                        "type": "ApiConnection",
+                                                        "inputs": {
+                                                            "host": {
+                                                                "connection": {
+                                                                    "name": "@parameters('$connections')['azureautomation']['connectionId']"
+                                                                }
+                                                            },
+                                                            "method": "put",
+                                                            "body": {
+                                                                "properties": {
+                                                                    "parameters": {
+                                                                        "imageVMName": "@{outputs('Compose_Result_Version')}"
+                                                                    }
+                                                                }
+                                                            },
+                                                            "path": "/subscriptions/@{encodeURIComponent('d1857a3e-d145-4293-b1bf-b528dab49617')}/resourceGroups/@{encodeURIComponent('AVD-LAB-RG')}/providers/Microsoft.Automation/automationAccounts/@{encodeURIComponent('UpdateAVD')}/jobs",
+                                                            "queries": {
+                                                                "x-ms-api-version": "2015-10-31",
+                                                                "runbookName": "UpdateImage",
+                                                                "wait": false
+                                                            }
+                                                        }
+                                                    },
+                                                    "Get_job_output_version": {
+                                                        "runAfter": {
+                                                            "Create_job_version": [
+                                                                "Succeeded"
+                                                            ]
+                                                        },
+                                                        "type": "ApiConnection",
+                                                        "inputs": {
+                                                            "host": {
+                                                                "connection": {
+                                                                    "name": "@parameters('$connections')['azureautomation']['connectionId']"
+                                                                }
+                                                            },
+                                                            "method": "get",
+                                                            "path": "/subscriptions/@{encodeURIComponent('d1857a3e-d145-4293-b1bf-b528dab49617')}/resourceGroups/@{encodeURIComponent('AVD-LAB-RG')}/providers/Microsoft.Automation/automationAccounts/@{encodeURIComponent('UpdateAVD')}/jobs/@{encodeURIComponent(body('Create_job_version')?['properties']?['jobId'])}/output",
+                                                            "queries": {
+                                                                "x-ms-api-version": "2015-10-31"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "else": {
+                                                    "actions": {
+                                                        "Condition_check_hosts": {
+                                                            "actions": {
+                                                                "Compose_Result": {
+                                                                    "type": "Compose",
+                                                                    "inputs": "@int(last(split(outputs('Compose_after_JSON'), '=')))"
+                                                                },
+                                                                "Post_message_after_Host": {
+                                                                    "runAfter": {
+                                                                        "Compose_Result": [
+                                                                            "Succeeded"
+                                                                        ]
+                                                                    },
+                                                                    "type": "ApiConnection",
+                                                                    "inputs": {
+                                                                        "host": {
+                                                                            "connection": {
+                                                                                "name": "@parameters('$connections')['teams']['connectionId']"
+                                                                            }
+                                                                        },
+                                                                        "method": "post",
+                                                                        "body": {
+                                                                            "recipient": {
+                                                                                "groupId": "1acb47e3-5a56-471a-877e-82f00d7eebd9",
+                                                                                "channelId": "19:f192f92755164b9ba88cb60ac0fc1cf8@thread.tacv2"
+                                                                            },
+                                                                            "messageBody": "<p class=\"editor-paragraph\">AUTO: Provisioning service has been initiated for @{outputs('Compose_Result')} host(s)</p>"
+                                                                        },
+                                                                        "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('Flow bot')}/location/@{encodeURIComponent('Channel')}"
+                                                                    }
+                                                                },
+                                                                "Create_job_Host": {
+                                                                    "runAfter": {
+                                                                        "Post_message_after_Host": [
+                                                                            "Succeeded"
+                                                                        ]
+                                                                    },
+                                                                    "type": "ApiConnection",
+                                                                    "inputs": {
+                                                                        "host": {
+                                                                            "connection": {
+                                                                                "name": "@parameters('$connections')['azureautomation']['connectionId']"
+                                                                            }
+                                                                        },
+                                                                        "method": "put",
+                                                                        "body": {
+                                                                            "properties": {
+                                                                                "parameters": {
+                                                                                    "sessionHostCount": "@outputs('Compose_Result')"
+                                                                                }
+                                                                            }
+                                                                        },
+                                                                        "path": "/subscriptions/@{encodeURIComponent('d1857a3e-d145-4293-b1bf-b528dab49617')}/resourceGroups/@{encodeURIComponent('AVD-LAB-RG')}/providers/Microsoft.Automation/automationAccounts/@{encodeURIComponent('UpdateAVD')}/jobs",
+                                                                        "queries": {
+                                                                            "x-ms-api-version": "2015-10-31",
+                                                                            "runbookName": "NewHosts",
+                                                                            "wait": false
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "Get_job_output_Host": {
+                                                                    "runAfter": {
+                                                                        "Create_job_Host": [
+                                                                            "Succeeded"
+                                                                        ]
+                                                                    },
+                                                                    "type": "ApiConnection",
+                                                                    "inputs": {
+                                                                        "host": {
+                                                                            "connection": {
+                                                                                "name": "@parameters('$connections')['azureautomation']['connectionId']"
+                                                                            }
+                                                                        },
+                                                                        "method": "get",
+                                                                        "path": "/subscriptions/@{encodeURIComponent('d1857a3e-d145-4293-b1bf-b528dab49617')}/resourceGroups/@{encodeURIComponent('AVD-LAB-RG')}/providers/Microsoft.Automation/automationAccounts/@{encodeURIComponent('UpdateAVD')}/jobs/@{encodeURIComponent(body('Create_job_Host')?['properties']?['jobId'])}/output",
+                                                                        "queries": {
+                                                                            "x-ms-api-version": "2015-10-31"
+                                                                        }
+                                                                    }
+                                                                }
+                                                            },
+                                                            "else": {
+                                                                "actions": {}
+                                                            },
+                                                            "expression": {
+                                                                "and": [
+                                                                    {
+                                                                        "contains": [
+                                                                            "@outputs('Compose_after_JSON')",
+                                                                            "host"
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            },
+                                                            "type": "If"
+                                                        }
+                                                    }
+                                                },
+                                                "expression": {
+                                                    "and": [
+                                                        {
+                                                            "contains": [
+                                                                "@outputs('Compose_after_JSON')",
+                                                                "version"
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                "type": "If"
                                             }
-                                        },
-                                        "method": "post",
-                                        "body": {
-                                            "recipient": {
-                                                "groupId": "1acb47e3-5a56-471a-877e-82f00d7eebd9",
-                                                "channelId": "19:f192f92755164b9ba88cb60ac0fc1cf8@thread.tacv2"
-                                            },
-                                            "messageBody": "<p class=\"editor-paragraph\">AVD: Provisioning service is started for @{outputs('Compose_Result')} host(s)</p><br>"
-                                        },
-                                        "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('Flow bot')}/location/@{encodeURIComponent('Channel')}"
-                                    }
-                                },
-                                "Create_job": {
-                                    "runAfter": {
-                                        "Post_message_in_a_chat_or_channel": [
-                                            "Succeeded"
-                                        ]
-                                    },
-                                    "type": "ApiConnection",
-                                    "inputs": {
-                                        "host": {
-                                            "connection": {
-                                                "name": "@parameters('$connections')['azureautomation']['connectionId']"
-                                            }
-                                        },
-                                        "method": "put",
-                                        "body": {
-                                            "properties": {
-                                                "parameters": {
-                                                    "sessionHostCount": "@outputs('Compose_Result')"
-                                                }
-                                            }
-                                        },
-                                        "path": "/subscriptions/@{encodeURIComponent('d1857a3e-d145-4293-b1bf-b528dab49617')}/resourceGroups/@{encodeURIComponent('AVD-LAB-RG')}/providers/Microsoft.Automation/automationAccounts/@{encodeURIComponent('UpdateAVD')}/jobs",
-                                        "queries": {
-                                            "x-ms-api-version": "2015-10-31",
-                                            "runbookName": "NewHosts",
-                                            "wait": false
                                         }
-                                    }
-                                },
-                                "Get_job_output": {
-                                    "runAfter": {
-                                        "Create_job": [
-                                            "Succeeded"
+                                    },
+                                    "expression": {
+                                        "and": [
+                                            {
+                                                "contains": [
+                                                    "@outputs('Compose_after_JSON')",
+                                                    "image"
+                                                ]
+                                            }
                                         ]
                                     },
-                                    "type": "ApiConnection",
-                                    "inputs": {
-                                        "host": {
-                                            "connection": {
-                                                "name": "@parameters('$connections')['azureautomation']['connectionId']"
-                                            }
-                                        },
-                                        "method": "get",
-                                        "path": "/subscriptions/@{encodeURIComponent('d1857a3e-d145-4293-b1bf-b528dab49617')}/resourceGroups/@{encodeURIComponent('AVD-LAB-RG')}/providers/Microsoft.Automation/automationAccounts/@{encodeURIComponent('UpdateAVD')}/jobs/@{encodeURIComponent(body('Create_job')?['properties']?['jobId'])}/output",
-                                        "queries": {
-                                            "x-ms-api-version": "2015-10-31"
-                                        }
-                                    }
+                                    "type": "If"
                                 }
                             },
                             "runAfter": {

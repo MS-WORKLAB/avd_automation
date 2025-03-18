@@ -2,7 +2,11 @@
 This repo contains simple templates and script to ...........
 
 ## Useful links
-- [quick-start-custom-image](https://github.com/Azure/azure-quickstart-templates/blob/master/quickstarts/microsoft.devcenter/devbox-with-customized-image/customized-image/customized-image.bicep)
+- [Azure-Compute-Gallery](https://learn.microsoft.com/en-us/azure/virtual-machines/azure-compute-gallery)
+- [AZ desktopvirtualization](https://learn.microsoft.com/en-us/cli/azure/desktopvirtualization/hostpool?view=azure-cli-latest)
+
+## Disclaimer
+This project is not an official Microsoft-supported implementation. It is provided as-is, without any warranties or guarantees. Use at your own risk. Microsoft is not responsible for any issues, damages, or liabilities arising from the use of this project.
 
 ## Summary
 
@@ -38,6 +42,7 @@ This repo contains simple templates and script to ...........
 
 parallel execution of creation hosts
 automation to generalize vm
+include image builder process
 
 
 

@@ -67,3 +67,5 @@ triggers Automation Account NewHosts
 
 </p>
 </details> 
+
+[![Back To Install](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/back.png)](https://github.com/MS-WORKLAB/avd_automation)

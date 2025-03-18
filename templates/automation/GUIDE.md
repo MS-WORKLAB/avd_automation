@@ -45,3 +45,5 @@ The automation logic is divided into three main processes:
 | > **Service Principal**           |  |
 | Service Principal Client ID   | Service Principal App/Client ID result from Azure cloud shell First Step **Create Service Principal** |
 | Service Principal Secret      | Service Principal Secret result from Azure cloud shell First Step **Create Service Principal** |
+
+[![Back To Install](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/back.png)](https://github.com/MS-WORKLAB/avd_automation)

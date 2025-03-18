@@ -1,4 +1,4 @@
-# Create automated process for AVD Image update 
+# Automated AVD Image process via MS Teams
 
 This repo contains simple templates and script to Automate VM and AVD session hosts provisioning in Azure using MS Teams chat and LogicApps to trigger an Automation Account, leveraging Azure CLI for VM deployment, image creation, and scaling based on Azure Compute Gallery images.
 

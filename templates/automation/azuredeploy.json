@@ -235,7 +235,7 @@
             "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/main/templates/automation/runbooks/NewImage.ps1",
             "contentVersion": "1.0.0.0"
           },
-          "runtimeEnvironment": "PowerShell7"
+          "runtimeEnvironment": "7.2"
         }
       },
       {

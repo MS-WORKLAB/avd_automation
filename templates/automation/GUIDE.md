@@ -6,12 +6,14 @@
 
 ##  Summary
 
-The Logic App monitors a specific Teams Channel for messages containing the keyword "AVD". Upon detecting such messages, it parses the message details from JSON format to extract relevant information. Based on the parsed data, the Logic App determines the associated process and divides the routine into three distinct jobs. These jobs utilize variables defined within the Microsoft Teams chat for customization.
+The automation logic is divided into three main processes:
 
-All these configurations are parameterized, allowing users to modify them according to their specific requirements.
+1️⃣ The first process creates a new VM based on the latest image version from an existing Azure Compute Gallery. This VM is ready to receive new applications or updates. Once it is generalized, the next process begins.
 
-⚠️ Two of the loggic app triggers need '=' sign to get dynamic parameter for next steps.
-⚠️ You will need to modify MS Teams and Automation Account steps in the Logic App after initializing your connections.
+2️⃣ The second process takes the VM name as input via Microsoft Teams and creates a new image version. This version is then prepared for deployment to the hosts within an AVD host pool.
+
+3️⃣ Finally, the third runbook takes the number of VMs as a parameter and initiates the routine for provisioning and integrating the VMs as session hosts into the AVD infrastructure.
+
 
 ##  Details
 

@@ -1,12 +1,16 @@
 # Create automated process for AVD Image update 
+
 This repo contains simple templates and script to Automate VM and AVD session host provisioning in Azure using MS Teams chat and LogicApps to trigger an Automation Account, leveraging Azure CLI for VM deployment, image creation, and scaling based on Azure Compute Gallery images.
 
+## Disclaimer
+
+This project is not an official Microsoft-supported implementation. It is provided as-is, without any warranties or guarantees. Use at your own risk. Microsoft is not responsible for any issues, damages, or liabilities arising from the use of this project.
+
 ## Useful links
+
 - [Azure-Compute-Gallery](https://learn.microsoft.com/en-us/azure/virtual-machines/azure-compute-gallery)
 - [AZ-desktopvirtualization](https://learn.microsoft.com/en-us/cli/azure/desktopvirtualization/hostpool?view=azure-cli-latest)
-
-## Disclaimer
-This project is not an official Microsoft-supported implementation. It is provided as-is, without any warranties or guarantees. Use at your own risk. Microsoft is not responsible for any issues, damages, or liabilities arising from the use of this project.
+- [LogicApp Guide](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/logicapp/GUIDE.md)
 
 ## Summary
 
@@ -41,16 +45,16 @@ This project is not an official Microsoft-supported implementation. It is provid
  - AVD Host Pool
 
 
+## TL;DR; Steps
 
-### TL;DR; Steps
 1. Create a Service Principal 
 2. Create Automation Account for 3 main tasks 
-    a. New VM Based on AZ Compute Gallery Image
-    b. Capture existing VM as new Version
-    c. Create new AVD Hosts
+    - a. New VM Based on AZ Compute Gallery Image
+    - b. Capture existing VM as new Version
+    - c. Create new AVD Hosts
 3. Create Logic App to trigger automations via MS Teams
 
-# Video Snap
+## Video Snap
 
 https://github.com/user-attachments/assets/1f89b0d9-ed04-4b33-9307-ed0e96356568
 
@@ -60,7 +64,9 @@ https://github.com/user-attachments/assets/1f89b0d9-ed04-4b33-9307-ed0e96356568
 - include Azure Image Builder on process
 - Automation to generalize vm
 
-# Service Principal
+# Installation
+
+## Service Principal
 
 Create Service Principal for automation tasks and keep the result values:
 ```bash
@@ -69,14 +75,14 @@ az ad sp create-for-rbac --name "AVDServicePrincipal" --role "Contributor" --sco
 ```
 [![Launch Cloud Shell](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/button.png)](https://shell.azure.com/?shell=azurecli)
 
-# Automation Account
+## Automation Account
 
 Click the button below to deploy the Automation Account to your Azure subscription:
 
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMS-WORKLAB%2Favd_automation%2Fmain%2Ftemplates%2Fautomation%2Fazuredeploy.json)
 
-# [Optional] Triger via Microsoft Teams using Logic App
+## Triger via Microsoft Teams using Logic App
 
 Click the button below to deploy the Logic App to your Azure subscription:
 

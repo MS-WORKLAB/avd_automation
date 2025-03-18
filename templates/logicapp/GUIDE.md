@@ -1,4 +1,4 @@
-# Create automated process for AVD Image Update 
+# Logic App guide for AVD Image Update 
 
 ## Useful links
 
@@ -40,3 +40,29 @@ triggers Automation Account NewHosts
 </p>
 </details> 
 
+## Screen guide
+
+<details><summary>Show Content</summary>
+
+![scr](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicscr/screenshot.1741335025.jpg)
+![scr](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicscr/screenshot.1741335026.jpg)
+![scr](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicscr/screenshot.1741335027.jpg)
+![scr](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicscr/screenshot.1741335028.jpg)
+![scr](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicscr/screenshot.1741335029.jpg)
+![scr](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicscr/screenshot.1741335030.jpg)
+![scr](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicscr/screenshot.1741335031.jpg)
+![scr](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicscr/screenshot.1741335032.jpg)
+![scr](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicscr/screenshot.1741335033.jpg)
+![scr](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicscr/screenshot.1741335034.jpg)
+![scr](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicscr/screenshot.1741335035.jpg)
+![scr](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicscr/screenshot.1741335036.jpg)
+![scr](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicscr/screenshot.1741335037.jpg)
+![scr](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicscr/screenshot.1741335038.jpg)
+![scr](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicscr/screenshot.1741335039.jpg)
+![scr](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicscr/screenshot.1741335040.jpg)
+![scr](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicscr/screenshot.1741335041.jpg)
+![scr](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicscr/screenshot.1741335042.jpg)
+![scr](https://github.com/MS-WORKLAB/avd_automation/blob/main/templates/more/logicscr/screenshot.1741335043.jpg)
+
+</p>
+</details> 

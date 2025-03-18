@@ -227,15 +227,14 @@
           "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
         ],
         "properties": {
-          "runbookType": "PowerShell",
+          "runbookType": "PowerShell72",
           "description": "My runbook description",
           "logVerbose": true,
           "logProgress": true,
           "publishContentLink": {
             "uri": "https://raw.githubusercontent.com/MS-WORKLAB/avd_automation/main/templates/automation/runbooks/NewImage.ps1",
             "contentVersion": "1.0.0.0"
-          },
-          "runtimeEnvironment": "7.2"
+          }
         }
       },
       {

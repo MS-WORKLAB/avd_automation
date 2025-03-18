@@ -65,7 +65,9 @@ https://github.com/user-attachments/assets/1f89b0d9-ed04-4b33-9307-ed0e96356568
 - Parallel execution of hosts creation
 - include Azure Image Builder on process
 - Ability to auto update also the major version number
-- Automation to generalize vm
+- Include dynamic TAGs
+- Monitoring the output of runbooks / MSTeams reply
+- Automation to generalize VM
 
 # Installation
 

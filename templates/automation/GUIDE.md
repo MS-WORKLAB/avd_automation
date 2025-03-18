@@ -12,7 +12,7 @@ The automation logic is divided into three main processes:
 
 2️⃣ The second process takes the VM name as input via Microsoft Teams and creates a new image version. This version is then prepared for deployment to the hosts within an AVD host pool.
 
-3️⃣ Finally, the third runbook takes the number of VMs as a parameter and initiates the routine for provisioning and integrating the VMs as session hosts into the AVD infrastructure.
+3️⃣ Finally, the third runbook takes the number of VMs as a parameter and initiates the routine for provisioning and integrating the VMs including TAG: IMGVer:#.#.# as session hosts into the AVD infrastructure.
 
 
 ##  Details
